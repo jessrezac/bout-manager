@@ -1,7 +1,6 @@
 class PeoplePoems < ActiveRecord::Migration[6.0]
   def change
     create_table :people_poems, id: false do |t|
-      t.primary_key :id
       t.integer :person_id
       t.integer :poem_id
 
