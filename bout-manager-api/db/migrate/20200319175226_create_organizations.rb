@@ -3,7 +3,7 @@ class CreateOrganizations < ActiveRecord::Migration[6.0]
     create_table :organizations do |t|
       t.primary_key :id
       t.string :name
-      t.integer :type
+      t.integer :type, default: 0
 
       t.timestamps
     end
