@@ -1,0 +1,2 @@
+class RoundSetting < ApplicationRecord
+end

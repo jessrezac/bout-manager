@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  location: MyString
+  time_penalty: 1.5
+  time_penalty_grace_period: 1
+  time_penalty_increment: 1
+  min_team_size: 1
+  max_team_size: 1
+
+two:
+  name: MyString
+  location: MyString
+  time_penalty: 1.5
+  time_penalty_grace_period: 1
+  time_penalty_increment: 1
+  min_team_size: 1
+  max_team_size: 1
