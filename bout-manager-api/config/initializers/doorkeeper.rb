@@ -10,21 +10,12 @@ Doorkeeper.configure do
     #   User.find_by_id(session[:user_id]) || redirect_to(new_user_session_url)
   end
 
-  # In this flow, a token is requested in exchange for the resource owner credentials (username and password)
-  resource_owner_from_credentials do |routes|
-    user = User.find_for_database_authentication(:username => params[:username])
-    if user && user.valid_for_authentication? { user.valid_password?(params[:password]) }
-      user
-    end
-  end
 
-  ...
 
   # Access token expiration time (default 2 hours).
   # If you want to disable expiration, set this to nil.
   access_token_expires_in 5.days
 
-  ...
   #
   # implicit and password grant flows have risks that you should understand
   # before enabling:
@@ -47,6 +38,3 @@ Doorkeeper.configure do
   # WWW-Authenticate Realm (default "Doorkeeper").
   # realm "Doorkeeper"
 end
-
-Doorkeeper::OAuth::TokenResponse.send :prepend, CustomTokenResponse
-Doorkeeper::OAuth::ErrorResponse.send :prepend, CustomTokenErrorResponse
