@@ -1,0 +1,32 @@
+@charset "utf-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Montserrat&display=swap');
+
+$body-family: 'Montserrat', sans-serif;
+$family-primary: 'Gochi Hand', cursive;
+
+
+$magenta-crayola: rgba(245, 85, 159, 1);
+$rajah: rgba(246, 170, 86, 1);
+$minion-yellow: rgba(245, 236, 71, 1);
+$pale-green: rgba(150, 242, 155, 1);
+$turquoise: rgba(77, 251, 228, 1);
+
+
+$primary: $turquoise;
+$info: $pale-green;
+$link: $magenta-crayola;
+$success: $turquoise;
+$danger: $minion-yellow;
+$warning: $rajah;
+
+
+.hero-mic {
+    @extend .hero;
+    background: black url("./joshua-hoehne-6M9jjeZjscE-unsplash.jpg") center / cover;
+}
+
+body {
+    @extend body;
+    background: url('./trianglify.png') center / cover;
+}
