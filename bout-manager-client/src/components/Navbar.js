@@ -65,9 +65,7 @@ class Navbar extends Component {
                 <div className="navbar-end">
                 <div className="navbar-item">
                     <div className="buttons">
-                    <a href="https://google.com" className="button is-link">
-                        Register / Log in
-                    </a>
+                    <button className="button is-link" onClick={() => {this.props.showModal()}}>Register/Login</button>
                     </div>
                 </div>
                 </div>

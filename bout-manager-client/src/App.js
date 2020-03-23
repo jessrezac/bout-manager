@@ -1,18 +1,31 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Hero from './components/Hero'
 import Navbar from './components/Navbar'
 import Modal from './components/Modal'
 import './App.css';
 
-function App() {
-  return (
-      <>
-          <Modal active="is-active" />
+class App extends Component {
 
-          <Navbar />
-          <Hero />
+  state = {
+    modalIsOpen: true
+  }
+
+  toggleModal = () => {
+    this.setState({
+      modalIsOpen: !this.state.modalIsOpen
+    })
+  }
+
+  render() {
+    return (
+      <>
+        <Modal isOpen={this.state.modalIsOpen} hideModal={this.toggleModal} />
+
+        <Navbar showModal={this.toggleModal} />
+        <Hero />
       </>
-  );
+    );
+  }
 }
 
 export default App;

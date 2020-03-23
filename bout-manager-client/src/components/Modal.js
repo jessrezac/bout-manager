@@ -29,13 +29,17 @@ class Modal extends Component {
     }
 
     render() {
+        if (!this.props.isOpen) {
+            return null;
+        }
+
         return (
-            <div className={"modal " + this.props.active}>
+            <div className={"modal is-active"}>
                 <div className="modal-background"></div>
                 <div className="modal-card">
                     <header className="modal-card-head has-background-white">
                         <p className="modal-card-title">Login</p>
-                        <button className="delete" aria-label="close"></button>
+                        <button className="delete" aria-label="close" onClick={() => {this.props.hideModal()}}></button>
                     </header>
                     <section className="modal-card-body">
                         <form onSubmit={this.handleSubmit}>
@@ -52,7 +56,7 @@ class Modal extends Component {
                                 </div>
                             </div>
                             <div className="control">
-                                <button type="submit" className="button is-primary">Submit</button>
+                                <button type="submit" className="button is-primary">Login</button>
                             </div>
                         </form>
                     </section>
