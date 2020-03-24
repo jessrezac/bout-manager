@@ -11,9 +11,9 @@ class App extends Component {
   }
 
   toggleModal = () => {
-    this.setState({
-      modalIsOpen: !this.state.modalIsOpen
-    })
+    this.setState(prevState => ({
+      modalIsOpen: !prevState.modalIsOpen
+    }))
   }
 
   render() {
