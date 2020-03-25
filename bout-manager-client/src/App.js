@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import Hero from './components/Hero'
-import Navbar from './components/Navbar'
 import Modal from './components/Modal'
+import Navbar from "./components/Navbar";
+import Welcome from "./components/Welcome";
+import Dashboard from "./components/Dashboard";
+
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 import './App.css';
 
 class App extends Component {
 
   state = {
-    modalIsOpen: true
+    modalIsOpen: false
   }
 
   toggleModal = () => {
@@ -17,14 +22,23 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <>
-        <Modal isOpen={this.state.modalIsOpen} hideModal={this.toggleModal} />
 
+    return (
+      <Router>
+        <Modal isOpen={this.state.modalIsOpen} hideModal={this.toggleModal} />
         <Navbar showModal={this.toggleModal} />
-        <Hero />
-      </>
-    );
+            <Switch>
+                <Route path="/welcome">
+                    <Welcome />
+                </Route>
+                <Route path="/dashboard">
+                    <Dashboard />
+                </Route>
+                <Route path="/">
+                    <Hero />
+                </Route>
+            </Switch>
+    </Router>)
   }
 }
 
