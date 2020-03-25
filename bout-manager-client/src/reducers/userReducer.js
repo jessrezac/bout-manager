@@ -2,7 +2,7 @@
 export default function userReducer(state = {
     isLoginSuccess: false,
     isLoginPending: false,
-    loginError: null,
+    loginError: "",
     user: {}
 
 }, action) {
@@ -14,7 +14,7 @@ export default function userReducer(state = {
             return Object.assign({}, state, {isLoginSuccess: true, user: action.user});
 
         case "SET_LOGIN_ERROR":
-            return Object.assign({}, state, { loginError: action.loginError})
+            return Object.assign({}, state, { isLoginPending: false, loginError: action.loginError})
 
         case "LOGOUT":
             return Object.assign({}, state, { user: { }} )

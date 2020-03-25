@@ -3,7 +3,7 @@ import React, { Component } from "react";
 class Dashboard extends Component {
     render() {
         return (
-            <section class="section">Welcome</section>
+            <section className="section">Welcome</section>
         )
     }
 }

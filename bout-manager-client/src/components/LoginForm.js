@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { setLoginPending, setLoginSuccess, setLoginError, logout } from './../actions/user'
 
 class LoginForm extends Component {
 
@@ -15,6 +17,7 @@ class LoginForm extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
+        this.props.setLoginPending()
         const configObj = { 
             method: "POST", 
             headers: {
@@ -25,7 +28,10 @@ class LoginForm extends Component {
         }
         fetch("http://localhost:3000/oauth/token", configObj)
             .then(resp => resp.json())
-            .then(data => console.log(data))
+            .then(data => {
+                data.error ? this.props.setLoginError("Email address or password are incorrect.") : this.props.setLoginError("")
+                this.props.setLoginSuccess(data)
+            })
 
         this.setState({
             email: "",
@@ -48,6 +54,7 @@ class LoginForm extends Component {
                         <input onChange={this.handleInputChange} className="input is-primary" type="password" placeholder="Password" name="password" value={this.state.password} />
                     </div>
                 </div>
+                <p className="content has-text-warning">{this.props.loginError}</p>
                 <div className="control">
                     <button type="submit" className="button is-primary">Login</button>
                 </div>
@@ -56,4 +63,13 @@ class LoginForm extends Component {
     }
 }
 
-export default LoginForm
+const mapStateToProps = state => {
+    return {
+        isLoginPending: state.user.isLoginPending,
+        isLoginSuccess: state.user.isLoginSuccess,
+        loginError: state.user.loginError,
+        user: state.user.user
+    }
+}
+
+export default connect(mapStateToProps, { setLoginPending, setLoginSuccess, setLoginError, logout })(LoginForm);
