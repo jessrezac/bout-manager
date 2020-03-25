@@ -16,17 +16,18 @@ class RegisterForm extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
+        console.log(this.state)
         const configObj = { 
             method: "POST", 
             headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json"
             },
-            body: JSON.stringify(Object.assign({}, this.state, {grant_type: "password"}))
+            body: JSON.stringify({api_v1_user: this.state})
         }
-        fetch("http://localhost:3000/oauth/token", configObj)
+        fetch("http://localhost:3000/api/v1/users", configObj)
             .then(resp => resp.json())
-            .then(data => console.log(data))
+            .then(data => console.log(data));
         this.setState({
             email: "",
             password: "",
