@@ -3,8 +3,8 @@ import React, { Component } from "react";
 class Dashboard extends Component {
     render() {
         return (
-            <div>Welcome</div>
-        );
+            <section class="section">Welcome</section>
+        )
     }
 }
 
