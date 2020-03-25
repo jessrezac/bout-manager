@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from "react-router-dom";
 
 class Navbar extends Component {
     render() {
@@ -8,16 +9,16 @@ class Navbar extends Component {
             role="navigation"
             aria-label="main navigation">
             <div className="navbar-brand">
-                <a className="navbar-item" href="https://bulma.io">
+                <Link className="navbar-item" to="/">
                 <img
                     src="http://ltabkc.org/files/2017/10/ltablogo-1.png"
                     alt=""
                 />
                 Bout Manager
-                </a>
+                </Link>
 
                 <a
-                href="https://google.com"
+                href="#"
                 role="button"
                 className="navbar-burger burger"
                 aria-label="menu"
@@ -31,13 +32,13 @@ class Navbar extends Component {
 
             <div id="navbarBasicExample" className="navbar-menu">
                 <div className="navbar-start">
-                <a href="https://google.com" className="navbar-item">
+                <Link to="/" className="navbar-item">
                     Home
-                </a>
+                </Link>
 
-                <a href="https://google.com" className="navbar-item">
-                    Documentation
-                </a>
+                <Link to="/dashboard" className="navbar-item">
+                    Dashboard
+                </Link>
 
                 <div className="navbar-item has-dropdown is-hoverable">
                     <a href="https://google.com" className="navbar-link">
