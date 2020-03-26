@@ -14,6 +14,12 @@ export const setLoginError = loginError => {
     }
 }
 
+export const setRegistrationErrors = registrationErrors => {
+    return { type: "SET_REGISTRATION_ERRORS",
+        registrationErrors: registrationErrors
+    }
+}
+
 export const logout = () => {
     return { type: "LOGOUT" }
 }

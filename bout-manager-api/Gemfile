@@ -19,6 +19,9 @@ gem 'puma', '~> 4.1'
 # Authenticate users with Devise
 gem 'devise'
 
+# Serialize models to JSON
+gem 'fast_jsonapi'
+
 # Generate OAuth tokens for client with Doorkeper
 gem 'doorkeeper'
 
