@@ -26,7 +26,13 @@ $warning: $rajah;
     background: black url("./joshua-hoehne-6M9jjeZjscE-unsplash.jpg") center / cover;
 }
 
+html {
+    @extend html;
+    height:100%
+}
+
 body {
     @extend body;
     background: url('./trianglify.png') center / cover;
+    height:100%;
 }
