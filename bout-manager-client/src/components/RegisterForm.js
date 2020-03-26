@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from "react-redux"
+import { setLoginError } from "./../actions/user"
 
 class RegisterForm extends Component {
 
@@ -27,7 +29,10 @@ class RegisterForm extends Component {
         }
         fetch("http://localhost:3000/api/v1/users", configObj)
             .then(resp => resp.json())
-            .then(data => console.log(data));
+            .then(data => {
+                data.error ? this.props.setLoginError("Email address or password are incorrect.") : this.props.setLoginError("")
+                this.props.setLoginSuccess(data)
+            });
         this.setState({
             email: "",
             password: "",
@@ -56,6 +61,7 @@ class RegisterForm extends Component {
                         <input onChange={this.handleInputChange} className="input is-primary" type="password" placeholder="Confirm password" name="password_confirmation" value={this.state.password_confirmation} />
                     </div>
                 </div>
+                <p className="content has-text-warning">{this.props.loginError}</p>
                 <div className="control">
                     <button type="submit" className="button is-primary">Register</button>
                 </div>
@@ -64,4 +70,10 @@ class RegisterForm extends Component {
     }
 }
 
-export default RegisterForm
+const mapStateToProps = state => {
+    return {
+        loginError: state.user.loginError
+    }
+}
+
+export default connect(mapStateToProps, { setLoginError })(RegisterForm)
