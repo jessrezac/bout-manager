@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_22_023708) do
+ActiveRecord::Schema.define(version: 2020_03_26_233920) do
 
   create_table "districts", force: :cascade do |t|
     t.string "name"
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 2020_03_22_023708) do
 
   create_table "organizations", force: :cascade do |t|
     t.string "name"
-    t.integer "type", default: 0
+    t.integer "org_type", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -89,8 +89,7 @@ ActiveRecord::Schema.define(version: 2020_03_22_023708) do
 
   create_table "round_settings", force: :cascade do |t|
     t.integer "number"
-    t.string "time_limit"
-    t.string "float"
+    t.integer "time_limit"
     t.integer "min_poets"
     t.integer "max_poets"
     t.integer "district_id"
@@ -108,7 +107,7 @@ ActiveRecord::Schema.define(version: 2020_03_22_023708) do
   create_table "scores", force: :cascade do |t|
     t.integer "poem_id"
     t.float "score"
-    t.integer "people_id"
+    t.integer "person_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -132,7 +131,7 @@ ActiveRecord::Schema.define(version: 2020_03_22_023708) do
 
   create_table "team_people", force: :cascade do |t|
     t.integer "team_id"
-    t.integer "people_id"
+    t.integer "person_id"
     t.integer "role"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
