@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux"
-import { setLoginError } from "./../actions/user"
+import { setRegistrationErrors } from "./../actions/user"
 
 class RegisterForm extends Component {
 
@@ -30,8 +30,8 @@ class RegisterForm extends Component {
         fetch("http://localhost:3000/api/v1/users", configObj)
             .then(resp => resp.json())
             .then(data => {
-                data.error ? this.props.setLoginError("Email address or password are incorrect.") : this.props.setLoginError("")
-                this.props.setLoginSuccess(data)
+                data.errors ? this.props.setRegistrationErrors(data.errors) : this.props.setRegistrationErrors({})
+                console.log(data)
             });
         this.setState({
             email: "",
@@ -42,38 +42,71 @@ class RegisterForm extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <div className="field">
-                    <label htmlFor="email">Email Address</label>
-                    <div className="control">
-                        <input onChange={this.handleInputChange} className="input is-primary" type="email" placeholder="Email address" name="email" value={this.state.email} />
-                    </div>
-                </div>
-                <div className="field">
-                    <div className="control">
-                        <label htmlFor="password">Password</label>
-                        <input onChange={this.handleInputChange} className="input is-primary" type="password" placeholder="Password" name="password" value={this.state.password} />
-                    </div>
-                </div>
-                <div className="field">
-                    <div className="control">
-                        <label htmlFor="password">Password Confirmation</label>
-                        <input onChange={this.handleInputChange} className="input is-primary" type="password" placeholder="Confirm password" name="password_confirmation" value={this.state.password_confirmation} />
-                    </div>
-                </div>
-                <p className="content has-text-warning">{this.props.loginError}</p>
-                <div className="control">
-                    <button type="submit" className="button is-primary">Register</button>
-                </div>
-            </form>
-        )
+			<form onSubmit={this.handleSubmit}>
+				<div className="field">
+					<label htmlFor="email">Email Address</label>
+					<div className="control">
+						<input
+							onChange={this.handleInputChange}
+							className="input is-primary"
+							type="email"
+							placeholder="Email address"
+							name="email"
+							value={this.state.email}
+						/>
+						<p className="content has-text-warning">
+							{this.props.emailErrors}
+						</p>
+					</div>
+				</div>
+				<div className="field">
+					<div className="control">
+						<label htmlFor="password">Password</label>
+						<input
+							onChange={this.handleInputChange}
+							className="input is-primary"
+							type="password"
+							placeholder="Password"
+							name="password"
+							value={this.state.password}
+						/>
+					</div>
+				</div>
+				<div className="field">
+					<div className="control">
+						<label htmlFor="password">Password Confirmation</label>
+						<input
+							onChange={this.handleInputChange}
+							className="input is-primary"
+							type="password"
+							placeholder="Confirm password"
+							name="password_confirmation"
+							value={this.state.password_confirmation}
+						/>
+						<p className="content has-text-warning">
+							{this.props.passwordErrors}
+						</p>
+					</div>
+				</div>
+				<div className="control">
+					<button type="submit" className="button is-primary">
+						Register
+					</button>
+				</div>
+			</form>
+		)
     }
 }
 
 const mapStateToProps = state => {
     return {
-        loginError: state.user.loginError
-    }
+		emailErrors:
+			state.user.registrationErrors.email &&
+			"Email " + state.user.registrationErrors["email"] + ".",
+		passwordErrors:
+			state.user.registrationErrors["password"] &&
+			"Password " + state.user.registrationErrors["password"] + "."
+	}
 }
 
-export default connect(mapStateToProps, { setLoginError })(RegisterForm)
+export default connect(mapStateToProps, { setRegistrationErrors })(RegisterForm)
