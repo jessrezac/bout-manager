@@ -29,14 +29,19 @@ class LoginForm extends Component {
         fetch("http://localhost:3000/oauth/token", configObj)
             .then(resp => resp.json())
             .then(data => {
-                data.error ? this.props.setLoginError("Email address or password are incorrect.") : this.props.setLoginError("")
-                this.props.setLoginSuccess(data)
-            })
+                if (data.error) { 
+                    this.props.setLoginError("Email address or password are incorrect.")
+                } else {
+                    this.props.setLoginError("")
+                    this.props.setLoginSuccess(data)
+                    this.props.hideModal()
 
-        this.setState({
-            email: "",
-            password: "",
-        });
+                    this.setState({
+                        email: "",
+                        password: ""
+                    })
+                }  
+            })
     }
 
     render() {

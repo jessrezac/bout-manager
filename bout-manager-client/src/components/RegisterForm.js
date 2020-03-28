@@ -31,7 +31,7 @@ class RegisterForm extends Component {
             .then(resp => resp.json())
             .then(data => {
                 data.errors ? this.props.setRegistrationErrors(data.errors) : this.props.setRegistrationErrors({})
-                console.log(data)
+                /* todo */
             });
         this.setState({
             email: "",
