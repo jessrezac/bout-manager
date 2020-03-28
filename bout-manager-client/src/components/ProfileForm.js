@@ -3,12 +3,12 @@ import { connect } from 'react-redux'
 
 class ProfileForm extends Component {
     state = {
-        firstName: "",
-        lastName: "",
-        phone: "",
-        email: "",
-        snapchat: "",
-        instagram: ""
+        firstName: this.props.firstName,
+        lastName: this.props.lastName,
+        phone: this.props.phone,
+        email: this.props.email,
+        snapchat: this.props.snapchat,
+        instagram: this.props.instagram
     }
 
     handleChange = e => {
@@ -29,6 +29,7 @@ class ProfileForm extends Component {
 							placeholder="First Name"
 							name="firstName"
 							onChange={this.handleChange}
+							value={this.state.firstName}
 						/>
 					</div>
 					<div className="control">
@@ -39,6 +40,7 @@ class ProfileForm extends Component {
 							placeholder="Last Name"
 							name="lastName"
 							onChange={this.handleChange}
+							value={this.state.lastName}
 						/>
 					</div>
 				</div>
@@ -51,6 +53,7 @@ class ProfileForm extends Component {
 							placeholder="Phone"
 							name="phone"
 							onChange={this.handleChange}
+							value={this.state.phone}
 						/>
 					</div>
 					<div className="control">
@@ -60,9 +63,8 @@ class ProfileForm extends Component {
 							className="input is-primary"
 							placeholder="Email"
 							name="email"
-							onChange={this.handleChange}>
-							{this.props.email}
-						</input>
+							onChange={this.handleChange}
+							value={this.props.email || this.state.email} />
 					</div>
 				</div>
 				<div className="field is-grouped">
@@ -73,9 +75,8 @@ class ProfileForm extends Component {
 							className="input is-primary"
 							placeholder="Snapchat"
 							name="snapchat"
-							onChange={this.handleChange}>
-							{this.props.snapchat}
-						</input>
+							onChange={this.handleChange}
+							value={this.state.snapchat} />
 					</div>
 					<div className="control">
 						<label htmlFor="instagram">Instagram</label>
@@ -84,9 +85,8 @@ class ProfileForm extends Component {
 							className="input is-primary"
 							placeholder="Instagram"
 							name="instagram"
-							onChange={this.handleChange}>
-							{this.props.instagram}
-						</input>
+							onChange={this.handleChange}
+							value={this.state.instagram} />
 					</div>
 				</div>
 			</form>
@@ -96,13 +96,9 @@ class ProfileForm extends Component {
 
 const mapStateToProps = state => {
     return {
-        firstName: state.user.firstName,
-        lastName: state.user.lastName,
-        phone: state.user.phone,
-        email: state.user.email,
-        snapchat: state.user.snapchat,
-        instagram: state.user.instagram
-    }
+		firstName: state.user.user.profile.first_name,
+		email: state.user.user.profile.email
+	}
 }
 
-export default connect()(ProfileForm)
+export default connect(mapStateToProps)(ProfileForm)

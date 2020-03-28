@@ -11,7 +11,7 @@ module CustomTokenResponse
                 'phone' => person.phone,
                 'email' => user.email,
                 'snapchat' => person.snapchat,
-                'instagram' => person.instagram
+                'instagram' => person.instagram,
                 'id' => person.id
             }
         }

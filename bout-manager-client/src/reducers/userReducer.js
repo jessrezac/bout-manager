@@ -4,7 +4,15 @@ export default function userReducer(state = {
     isLoginPending: false,
     loginError: "",
     registrationErrors: {},
-    user: {}
+    user: {
+        profile: {
+            first_name: "",
+            last_name: "",
+            email: "",
+            phone: "",
+            instagram: "",
+            snapchat: ""
+        }}
 
 }, action) {
     switch (action.type) {
@@ -23,7 +31,18 @@ export default function userReducer(state = {
 			})
 
         case "LOGOUT":
-            return Object.assign({}, state, { user: { }} )
+            return Object.assign({}, state, {
+				user: {
+					profile: {
+						first_name: "",
+						last_name: "",
+						email: "",
+						phone: "",
+						instagram: "",
+						snapchat: ""
+					}
+				}
+			})
 
         default:
             return state;
