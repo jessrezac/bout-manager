@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
         resources :districts, only: [:index]
+        resources :people
         devise_for :users, controllers: {
           registrations: 'api/v1/users/registrations'
         }, skip: [:sessions, :password]
