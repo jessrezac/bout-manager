@@ -61,7 +61,7 @@ class Modal extends Component {
 							<LoginForm hideModal={this.props.hideModal} />
 						)}
 						{!this.state.isLoginSelected && (
-							<RegisterForm hideModal={this.props.hideModal} />
+							<RegisterForm toggleLogin={this.toggleLogin} hideModal={this.props.hideModal} />
 						)}
 					</section>
 				</div>

@@ -64,33 +64,57 @@ class LoginForm extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <div className="field">
-                    <label htmlFor="email">Email Address</label>
-                    <div className="control">
-                        <input onChange={this.handleInputChange} className="input is-primary" type="email" placeholder="Email address" name="email" value={this.state.email} />
-                    </div>
-                </div>
-                <div className="field">
-                    <div className="control">
-                        <label htmlFor="password">Password</label>
-                        <input onChange={this.handleInputChange} className="input is-primary" type="password" placeholder="Password" name="password" value={this.state.password} />
-                    </div>
-                </div>
-                <div className="field">
-                    <div className="control">
-                        <label htmlFor="rememberMe">
-                            <input type="checkbox" className="checkbox" name="rememberMe" checked={this.state.rememberMe} onChange={this.handleInputChange} />
-                            Remember Me
-                        </label>
-                    </div>
-                </div>
-                <p className="content has-text-warning">{this.props.loginError}</p>
-                <div className="control">
-                    <button type="submit" className="button is-primary">Login</button>
-                </div>
-            </form>
-        )
+			<form onSubmit={this.handleSubmit}>
+				<p className="content has-text-warning">
+					{this.props.loginError}
+				</p>
+				<div className="field">
+					<label htmlFor="email">Email Address</label>
+					<div className="control">
+						<input
+							onChange={this.handleInputChange}
+							className="input is-primary"
+							type="email"
+							placeholder="Email address"
+							name="email"
+							value={this.state.email}
+						/>
+					</div>
+				</div>
+				<div className="field">
+					<div className="control">
+						<label htmlFor="password">Password</label>
+						<input
+							onChange={this.handleInputChange}
+							className="input is-primary"
+							type="password"
+							placeholder="Password"
+							name="password"
+							value={this.state.password}
+						/>
+					</div>
+				</div>
+				<div className="field">
+					<div className="control">
+						<label htmlFor="rememberMe">
+							<input
+								type="checkbox"
+								className="checkbox"
+								name="rememberMe"
+								checked={this.state.rememberMe}
+								onChange={this.handleInputChange}
+							/>
+							Remember Me
+						</label>
+					</div>
+				</div>
+				<div className="control">
+					<button type="submit" className="button is-primary">
+						Login
+					</button>
+				</div>
+			</form>
+		)
     }
 }
 
