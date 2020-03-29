@@ -4,16 +4,7 @@ export default function userReducer(state = {
     isLoginPending: false,
     loginError: "",
     registrationErrors: {},
-    user: {
-        profile: {
-            first_name: "",
-            last_name: "",
-            email: "",
-            phone: "",
-            instagram: "",
-            snapchat: ""
-        }}
-
+    user: {}
 }, action) {
     switch (action.type) {
         case "SET_LOGIN_PENDING":
@@ -32,16 +23,7 @@ export default function userReducer(state = {
 
         case "LOGOUT":
             return Object.assign({}, state, {
-				user: {
-					profile: {
-						first_name: "",
-						last_name: "",
-						email: "",
-						phone: "",
-						instagram: "",
-						snapchat: ""
-					}
-				}
+				user: { }
 			})
 
         default:

@@ -35,7 +35,7 @@ class RegisterForm extends Component {
 				} else {
 					this.props.setRegistrationErrors({})
 					this.props.setLoginError("Thanks for registering! Please login.")
-					this.props.toggleLogin()
+					this.props.toggleModal()
 				}
             });
         this.setState({

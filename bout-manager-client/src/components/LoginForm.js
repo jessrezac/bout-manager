@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setLoginPending, setLoginSuccess, setLoginError, logout } from './../actions/user'
-
+import { withRouter } from "react-router-dom"
 class LoginForm extends Component {
 
     state = {
@@ -52,12 +52,8 @@ class LoginForm extends Component {
                     // }
                     // console.log(data)
                     this.props.hideModal()
-
-                    this.setState({
-                        email: "",
-                        password: "",
-                        rememberMe: false
-                    })
+                    console.log(data)
+                    data.profile_complete ? this.props.history.push("/dashboard") : this.props.history.push("/welcome")  
                 }  
             })
     }
@@ -127,4 +123,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { setLoginPending, setLoginSuccess, setLoginError, logout })(LoginForm);
+export default connect(mapStateToProps, { setLoginPending, setLoginSuccess, setLoginError, logout })(withRouter(LoginForm));
