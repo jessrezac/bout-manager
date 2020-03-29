@@ -20,7 +20,7 @@ class Modal extends Component {
         }
 
         return (
-			<div className="modal is-active">
+			<div className="modal is-active" id="modal">
 				<div className="modal-background"></div>
 				<div className="modal-card">
 					<header className="modal-card-head has-background-white">
@@ -41,7 +41,7 @@ class Modal extends Component {
 											? "is-active"
 											: undefined
 									}>
-									<a href="#" onClick={this.toggleLogin}>
+									<a href="#modal" onClick={this.toggleLogin}>
 										Login
 									</a>
 								</li>
@@ -51,7 +51,7 @@ class Modal extends Component {
 											? "is-active"
 											: undefined
 									}>
-									<a href="#" onClick={this.toggleLogin}>
+									<a href="#modal" onClick={this.toggleLogin}>
 										Register
 									</a>
 								</li>

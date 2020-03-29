@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 class Navbar extends Component {
     render() {
         return (
-			<nav
+			<nav id="navbar"
 				className="navbar is-info"
 				role="navigation"
 				aria-label="main navigation">
@@ -18,7 +18,7 @@ class Navbar extends Component {
 					</Link>
 
 					<a
-						href="#"
+						href="#navbar"
 						role="button"
 						className="navbar-burger burger"
 						aria-label="menu"
