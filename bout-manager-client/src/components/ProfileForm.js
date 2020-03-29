@@ -41,17 +41,15 @@ class ProfileForm extends Component {
 		)
 			.then(resp => resp.json())
 			.then(data => {
-				console.log(data)
-				/* todo */
+				this.setState({
+					firstName: data.first_name || "",
+					lastName: data.last_name || "",
+					phone: data.phone || "",
+					email: data.email || "",
+					snapchat: data.snapchat || "",
+					instagram: data.instagram || ""
+				})
 			})
-		this.setState({
-			firstName: this.props.firstName,
-			lastName: this.props.lastName,
-			phone: this.props.phone,
-			email: this.props.email,
-			snapchat: this.props.snapchat,
-			instagram: this.props.instagram
-		})
 	}
 
     render() {
@@ -139,23 +137,37 @@ class ProfileForm extends Component {
 	}
 	
 	componentDidMount() {
-		this.setState({
-			firstName: this.props.firstName || "",
-			lastName: this.props.lastName || "",
-			phone: this.props.phone || "",
-			email: this.props.email || "",
-			snapchat: this.props.snapchat || "",
-			instagram: this.props.instagram || ""
-		})
+		const configObj = {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "application/json",
+				Authorization: "Bearer " + this.props.access_token
+			}
+		}
+		fetch(
+			`http://localhost:3000/api/v1/people/${this.props.id}`,
+			configObj
+		)
+			.then(resp => resp.json())
+			.then(data => {
+				this.setState({
+					firstName: data.first_name || "",
+					lastName: data.last_name || "",
+					phone: data.phone || "",
+					email: data.email || "",
+					snapchat: data.snapchat || "",
+					instagram: data.instagram || ""
+				})
+			})
+		
 	}
 }
 
 const mapStateToProps = state => {
     return {
 		access_token: state.user.user.access_token,
-		firstName: state.user.user.profile.first_name,
-		email: state.user.user.profile.email,
-		id: state.user.user.profile.id
+		id: state.user.user.person_id
 	}
 }
 

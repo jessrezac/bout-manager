@@ -52,7 +52,6 @@ class LoginForm extends Component {
                     // }
                     // console.log(data)
                     this.props.hideModal()
-                    console.log(data)
                     data.profile_complete ? this.props.history.push("/dashboard") : this.props.history.push("/welcome")  
                 }  
             })
