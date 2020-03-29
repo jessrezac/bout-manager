@@ -6,12 +6,16 @@ class LoginForm extends Component {
 
     state = {
         email: "",
-        password: ""
+        password: "",
+        rememberMe: false
     }
 
     handleInputChange = (e) => {
+        const input = e.target
+        const value = input.type === "checkbox" ? input.checked : input.value
+
         this.setState({
-            [e.target.name]: e.target.value
+            [input.name]: value
         })
     }
 
@@ -34,11 +38,25 @@ class LoginForm extends Component {
                 } else {
                     this.props.setLoginError("")
                     this.props.setLoginSuccess(data)
+                    localStorage.setItem("rememberMe", this.state.rememberMe)
+                    if (this.state.rememberMe) {
+                        localStorage.setItem(
+                            "access_token",
+                            data.access_token
+                        )
+                        localStorage.setItem("created_at", data.created_at)
+                        localStorage.setItem("expires_in", data.expires_in)
+                        localStorage.setItem("refresh_token", data.refresh_token)
+                        localStorage.setItem("token_type", data.token_type)
+                        localStorage.setItem("user_id", data.user_id)
+                    }
+                    console.log(data)
                     this.props.hideModal()
 
                     this.setState({
                         email: "",
-                        password: ""
+                        password: "",
+                        rememberMe: false
                     })
                 }  
             })
@@ -57,6 +75,14 @@ class LoginForm extends Component {
                     <div className="control">
                         <label htmlFor="password">Password</label>
                         <input onChange={this.handleInputChange} className="input is-primary" type="password" placeholder="Password" name="password" value={this.state.password} />
+                    </div>
+                </div>
+                <div className="field">
+                    <div className="control">
+                        <label htmlFor="rememberMe">
+                            <input type="checkbox" className="checkbox" name="rememberMe" checked={this.state.rememberMe} onChange={this.handleInputChange} />
+                            Remember Me
+                        </label>
                     </div>
                 </div>
                 <p className="content has-text-warning">{this.props.loginError}</p>
