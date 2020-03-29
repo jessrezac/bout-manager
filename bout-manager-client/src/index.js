@@ -10,8 +10,15 @@ import { Provider } from "react-redux"
 import configureStore, { history } from "./configureStore"
 import { ConnectedRouter } from "connected-react-router"
 import { Route, Switch } from "react-router-dom"
+import { loadState, saveState } from "./utils/localStorage"
 
-const store = configureStore()
+
+const persistedState = loadState()
+const store = configureStore(persistedState)
+
+store.subscribe(() => {
+	saveState(store.getState())
+})
 
 ReactDOM.render(
 	<Provider store={store}>
