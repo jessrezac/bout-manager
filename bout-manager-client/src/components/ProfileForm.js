@@ -3,12 +3,12 @@ import { connect } from 'react-redux'
 
 class ProfileForm extends Component {
     state = {
-        firstName: this.props.firstName,
-        lastName: this.props.lastName,
-        phone: this.props.phone,
-        email: this.props.email,
-        snapchat: this.props.snapchat,
-        instagram: this.props.instagram
+        firstName: "",
+        lastName: "",
+        phone: "",
+        email: "",
+        snapchat: "",
+        instagram: ""
     }
 
     handleChange = e => {
@@ -101,7 +101,7 @@ class ProfileForm extends Component {
 							placeholder="Email"
 							name="email"
 							onChange={this.handleChange}
-							value={this.props.email || this.state.email}
+							value={this.state.email}
 						/>
 					</div>
 				</div>
@@ -136,7 +136,18 @@ class ProfileForm extends Component {
 				</div>
 			</form>
 		)
-    }
+	}
+	
+	componentDidMount() {
+		this.setState({
+			firstName: this.props.firstName || "",
+			lastName: this.props.lastName || "",
+			phone: this.props.phone || "",
+			email: this.props.email || "",
+			snapchat: this.props.snapchat || "",
+			instagram: this.props.instagram || ""
+		})
+	}
 }
 
 const mapStateToProps = state => {
