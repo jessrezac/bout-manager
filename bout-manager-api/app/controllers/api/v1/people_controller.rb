@@ -16,7 +16,6 @@ class Api::V1::PeopleController < ApplicationController
 
     def people_params
         params.require(:api_v1_person).permit(:first_name, :last_name, :email, :phone, :instagram, :snapchat)
-
     end
 
 end
