@@ -4,7 +4,7 @@ class Api::V1::ActiveTeamsController < ApplicationController
     def index
         district = District.find(active_teams_params)
         teams = district.active_teams
-        render json: teams
+        render json: TeamSerializer.new(teams).to_json
     end
 
     private

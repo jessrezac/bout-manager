@@ -26,7 +26,7 @@ class DistrictSelect extends Component {
 			.then(resp => resp.json())
 			.then(data => {
 				this.props.setTeams(
-					data
+					data.data
 				)
 			})
 
