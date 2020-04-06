@@ -54,87 +54,91 @@ class ProfileForm extends Component {
 
     render() {
         return (
-			<div className="container">
-				<form onSubmit={this.handleSubmit}>
-					<div className="field is-grouped">
-						<div className="control">
-							<label htmlFor="first_name">First Name</label>
-							<input
-								type="text"
-								className="input is-primary"
-								placeholder="First Name"
-								name="firstName"
-								onChange={this.handleChange}
-								value={this.state.firstName}
-							/>
+			<section className="section">
+
+				<div className="container">
+					<h1 className="title is-1">Complete Your Profile</h1>
+					<form onSubmit={this.handleSubmit}>
+						<div className="field is-grouped">
+							<div className="control">
+								<label htmlFor="first_name">First Name</label>
+								<input
+									type="text"
+									className="input is-primary"
+									placeholder="First Name"
+									name="firstName"
+									onChange={this.handleChange}
+									value={this.state.firstName}
+								/>
+							</div>
+							<div className="control">
+								<label htmlFor="last_name">Last Name</label>
+								<input
+									type="text"
+									className="input is-primary"
+									placeholder="Last Name"
+									name="lastName"
+									onChange={this.handleChange}
+									value={this.state.lastName}
+								/>
+							</div>
+						</div>
+						<div className="field is-grouped">
+							<div className="control">
+								<label htmlFor="phone">Phone</label>
+								<input
+									type="phone"
+									className="input is-primary"
+									placeholder="Phone"
+									name="phone"
+									onChange={this.handleChange}
+									value={this.state.phone}
+								/>
+							</div>
+							<div className="control">
+								<label htmlFor="email">Email</label>
+								<input
+									type="email"
+									className="input is-primary"
+									placeholder="Email"
+									name="email"
+									onChange={this.handleChange}
+									value={this.state.email}
+								/>
+							</div>
+						</div>
+						<div className="field is-grouped">
+							<div className="control">
+								<label htmlFor="snapchat">Snapchat</label>
+								<input
+									type="text"
+									className="input is-primary"
+									placeholder="Snapchat"
+									name="snapchat"
+									onChange={this.handleChange}
+									value={this.state.snapchat}
+								/>
+							</div>
+							<div className="control">
+								<label htmlFor="instagram">Instagram</label>
+								<input
+									type="text"
+									className="input is-primary"
+									placeholder="Instagram"
+									name="instagram"
+									onChange={this.handleChange}
+									value={this.state.instagram}
+								/>
+							</div>
 						</div>
 						<div className="control">
-							<label htmlFor="last_name">Last Name</label>
-							<input
-								type="text"
-								className="input is-primary"
-								placeholder="Last Name"
-								name="lastName"
-								onChange={this.handleChange}
-								value={this.state.lastName}
-							/>
+							<button type="submit" className="button is-primary">
+								Submit
+							</button>
 						</div>
-					</div>
-					<div className="field is-grouped">
-						<div className="control">
-							<label htmlFor="phone">Phone</label>
-							<input
-								type="phone"
-								className="input is-primary"
-								placeholder="Phone"
-								name="phone"
-								onChange={this.handleChange}
-								value={this.state.phone}
-							/>
-						</div>
-						<div className="control">
-							<label htmlFor="email">Email</label>
-							<input
-								type="email"
-								className="input is-primary"
-								placeholder="Email"
-								name="email"
-								onChange={this.handleChange}
-								value={this.state.email}
-							/>
-						</div>
-					</div>
-					<div className="field is-grouped">
-						<div className="control">
-							<label htmlFor="snapchat">Snapchat</label>
-							<input
-								type="text"
-								className="input is-primary"
-								placeholder="Snapchat"
-								name="snapchat"
-								onChange={this.handleChange}
-								value={this.state.snapchat}
-							/>
-						</div>
-						<div className="control">
-							<label htmlFor="instagram">Instagram</label>
-							<input
-								type="text"
-								className="input is-primary"
-								placeholder="Instagram"
-								name="instagram"
-								onChange={this.handleChange}
-								value={this.state.instagram}
-							/>
-						</div>
-					</div>
-					<div className="control">
-						<button type="submit" className="button is-primary">
-							Submit
-						</button>
-					</div>
-				</form>
-			</div>
+					</form>
+				</div>
+			</section>
 		)
 	}
 	

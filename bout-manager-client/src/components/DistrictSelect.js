@@ -34,7 +34,8 @@ class DistrictSelect extends Component {
 
 	render() {
 		return (
-			<div className="container">
+			<section className="section">
+				<div className="container">
 					<div className="control">
 						<h2 className="title is-2">Choose Your District</h2>
 						<div className="select">
@@ -44,7 +45,8 @@ class DistrictSelect extends Component {
 							</select>
 						</div>
 					</div>
-			</div>
+				</div>
+			</section>
 		)
 	}
 

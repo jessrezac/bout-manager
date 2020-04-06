@@ -35,6 +35,6 @@ html {
 body {
     @extend body;
     background: url('./trianglify.png') center / cover;
+    background-attachment: fixed;
     height:100%;
 }
-
