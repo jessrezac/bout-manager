@@ -10,7 +10,9 @@ class TeamRadio extends Component {
 					id={this.props.id}
 					type="radio"
 					name="team"
-					value={this.props.id}></input>
+					value={this.props.id}
+					checked={this.props.selectedTeam === this.props.id}
+					onChange={this.props.setSelectedTeam}></input>
 				<label htmlFor={this.props.id}>
 					{this.props.name} {this.props.orgType}
 				</label>

@@ -24,7 +24,7 @@ class ProfileForm extends Component {
 			headers: {
 				"Content-Type": "application/json",
 				Accept: "application/json",
-				"Authorization": "Bearer " + this.props.access_token
+				"Authorization": "Bearer " + this.props.accessToken
 			},
 			body: JSON.stringify({ api_v1_person: {
 				first_name: this.state.firstName,
@@ -148,7 +148,7 @@ class ProfileForm extends Component {
 			headers: {
 				"Content-Type": "application/json",
 				Accept: "application/json",
-				Authorization: "Bearer " + this.props.access_token
+				Authorization: "Bearer " + this.props.accessToken
 			}
 		}
 		fetch(
@@ -171,7 +171,7 @@ class ProfileForm extends Component {
 
 const mapStateToProps = state => {
     return {
-		access_token: state.user.user.access_token,
+		accessToken: state.user.user.access_token,
 		id: state.user.user.person_id
 	}
 }
