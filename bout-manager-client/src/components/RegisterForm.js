@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux"
-import { setRegistrationErrors } from "./../actions/user"
+import { setRegistrationErrors, setLoginError } from "./../actions/user"
 
 class RegisterForm extends Component {
 
@@ -30,8 +30,13 @@ class RegisterForm extends Component {
         fetch("http://localhost:3000/api/v1/users", configObj)
             .then(resp => resp.json())
             .then(data => {
-                data.errors ? this.props.setRegistrationErrors(data.errors) : this.props.setRegistrationErrors({})
-                console.log(data)
+                if (data.errors) { 
+					this.props.setRegistrationErrors(data.errors) 
+				} else {
+					this.props.setRegistrationErrors({})
+					this.props.setLoginError("Thanks for registering! Please login.")
+					this.props.toggleModal()
+				}
             });
         this.setState({
             email: "",
@@ -109,4 +114,4 @@ const mapStateToProps = state => {
 	}
 }
 
-export default connect(mapStateToProps, { setRegistrationErrors })(RegisterForm)
+export default connect(mapStateToProps, { setRegistrationErrors, setLoginError })(RegisterForm)
