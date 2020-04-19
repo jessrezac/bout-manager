@@ -5,6 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import App from "./App"
 import Welcome from "./components/Welcome"
 import Dashboard from "./components/Dashboard"
+import Settings from "./components/Settings"
 import Header from "./components/Header"
 import { Provider } from "react-redux"
 import configureStore, { history } from "./configureStore"
@@ -30,6 +31,9 @@ ReactDOM.render(
 				</Route>
 				<Route path="/dashboard">
 					<Dashboard />
+				</Route>
+				<Route path="/settings">
+					<Settings />
 				</Route>
 				<Route exact path="/">
 					<App />
