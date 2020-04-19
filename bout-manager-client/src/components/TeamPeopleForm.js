@@ -37,26 +37,26 @@ class TeamPeopleForm extends Component {
 			headers: {
 				"Content-Type": "application/json",
 				Accept: "application/json",
-				Authorization: "Bearer " + this.props.access_token
+				Authorization: "Bearer " + this.props.accessToken
 			},
 			body: JSON.stringify({
 				api_v1_team_person: {
 					team_id: this.state.selectedTeam,
-					person_id: this.props.personId
+					person_id: this.props.id,
+					role: this.state.selectedRole
 				}
 			})
 		}
 		fetch(`http://localhost:3000/api/v1/team_people`, configObj)
 			.then(resp => resp.json())
 			.then(data => {
-				this.setState({
-				})
+				console.log(data)
 			})
 	}
 
 	render() {
 		return (
-			<form>
+			<form onSubmit={this.handleSubmit}>
 				<DistrictSelect setTeams={this.setTeams} />
 				<TeamRadioContainer
 					teams={this.state.teams}
@@ -64,6 +64,7 @@ class TeamPeopleForm extends Component {
 					selectedTeam={this.state.selectedTeam}
 				/>
 				<RoleSelect setRole={this.setRole} selectedRole={this.state.selectedRole} />
+				<button type="submit" className="button">Submit</button>
 			</form>
 		)
 	}

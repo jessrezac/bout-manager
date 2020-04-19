@@ -22,6 +22,7 @@ class TeamRadioContainer extends PureComponent {
 					selectedTeam={
 						this.props.selectedTeam
 					}
+					key={team.id}
 				/>
 			)
 		})
