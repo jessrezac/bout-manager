@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setLoginPending, setLoginSuccess, setLoginError, logout } from './../actions/user'
 import { withRouter } from "react-router-dom"
+
 class LoginForm extends Component {
 
     state = {
@@ -52,7 +53,8 @@ class LoginForm extends Component {
                     // }
                     // console.log(data)
                     this.props.hideModal()
-                    data.profile_complete ? this.props.history.push("/dashboard") : this.props.history.push("/welcome")  
+                    // data.profile_complete ? this.props.history.push("/dashboard") : this.props.history.push("/welcome") 
+                    this.props.history.push("/dashboard") 
                 }  
             })
     }
