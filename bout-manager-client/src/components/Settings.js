@@ -12,19 +12,21 @@ class Settings extends Component {
 			<section className="section">
 				<div className="container">
 					<div className="columns">
-						<div className="column is-one-quarter has-background-light">
+						<div className="column is-one-quarter">
 							<aside className="menu">
 								<p className="menu-label">User</p>
 								<ul className="menu-list">
 									<li>
-										<Link to="/settings/profile">Profile</Link>
+										<Link to="/settings/profile">
+											Profile
+										</Link>
 									</li>
 								</ul>
 								<p className="menu-label">Affiliations</p>
 								<ul className="menu-list">
 									<li>
-                                        <Link to="/settings/team">Team</Link>
-                                    </li>
+										<Link to="/settings/team">Team</Link>
+									</li>
 								</ul>
 								<p className="menu-label">Admin</p>
 								<ul className="menu-list">
