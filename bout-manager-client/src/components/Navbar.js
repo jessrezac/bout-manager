@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 class Navbar extends Component {
     render() {
         return (
-			<nav id="navbar"
+			<nav
+				id="navbar"
 				className="navbar is-info"
 				role="navigation"
 				aria-label="main navigation">
@@ -41,38 +42,36 @@ class Navbar extends Component {
 						</Link>
 
 						<Link to="/welcome" className="navbar-item">
-                            Welcome
+							Welcome
 						</Link>
 
 						<div className="navbar-item has-dropdown is-hoverable">
-							<a
-								href="https://google.com"
-								className="navbar-link">
-								More
-							</a>
+							<Link to="#navbar" className="navbar-link">
+								Settings
+							</Link>
 
 							<div className="navbar-dropdown">
-								<a
-									href="https://google.com"
+								<Link
+									to="/settings/profile"
 									className="navbar-item">
-									About
-								</a>
-								<a
-									href="https://google.com"
+									Profile
+								</Link>
+								<Link
+									to="/settings/team"
 									className="navbar-item">
-									Jobs
-								</a>
-								<a
-									href="https://google.com"
-									className="navbar-item">
-									Contact
-								</a>
+									Team
+								</Link>
 								<hr className="navbar-divider" />
-								<a
-									href="https://google.com"
+								<Link
+									to="/settings/district"
 									className="navbar-item">
-									Report an issue
-								</a>
+									District Settings
+								</Link>
+								<Link
+									to="/settings/round"
+									className="navbar-item">
+									Round Settings
+								</Link>
 							</div>
 						</div>
 					</div>

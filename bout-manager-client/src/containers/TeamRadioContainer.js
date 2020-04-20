@@ -22,6 +22,7 @@ class TeamRadioContainer extends PureComponent {
 					selectedTeam={
 						this.props.selectedTeam
 					}
+					key={team.id}
 				/>
 			)
 		})
@@ -32,9 +33,13 @@ class TeamRadioContainer extends PureComponent {
 			<section className="section">
 				<div className="container">
 					<h2 className="title is-2">Select Your Team</h2>
-						{this.props.teams.length > 0
-							? this.renderTeamRadios()
-							: <p className="content">Choose a district to load active teams.</p>}
+					{this.props.teams.length > 0 ? (
+						this.renderTeamRadios()
+					) : (
+						<p className="content">
+							Choose a district to load active teams.
+						</p>
+					)}
 				</div>
 			</section>
 		)

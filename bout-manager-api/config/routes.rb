@@ -14,6 +14,7 @@ Rails.application.routes.draw do
         devise_for :users, controllers: {
           registrations: 'api/v1/users/registrations'
         }, skip: [:sessions, :password]
+        resources :team_people, only: [:create]
     end
   end
 

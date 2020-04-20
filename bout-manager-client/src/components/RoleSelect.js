@@ -11,34 +11,23 @@ class RoleSelect extends Component {
 						<div className="select">
 							<select
 								name="districtId"
-								onChange={this.props.setRole}>
+								onChange={this.props.setRole}
+								value={this.props.selectedRole}>
 								<option>Select</option>
 								<option
-									value="poet"
-									selected={
-										this.props.selectedRole === "poet"
-									}>
+									value="poet">
 									Poet
 								</option>
 								<option
-									value="sponsor"
-									selected={
-										this.props.selectedRole === "sponsor"
-									}>
+									value="sponsor">
 									Sponsor
 								</option>
 								<option
-									value="judge"
-									selected={
-										this.props.selectedRole === "judge"
-									}>
+									value="judge">
 									Judge
 								</option>
 								<option
-									value="admin"
-									selected={
-										this.props.selectedRole === "admin"
-									}>
+									value="admin">
 									Admin
 								</option>
 							</select>
