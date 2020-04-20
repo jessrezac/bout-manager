@@ -7,7 +7,7 @@ class Dashboard extends Component {
     render() {
         return (
 			<section className="section">
-				{!!this.props.team ? null : <TeamUnassignedNotification />}
+				{!!this.props.teamName ? null : <TeamUnassignedNotification />}
 
 				{this.props.profileComplete ? null : (
 					<ProfileIncompleteNotification />
@@ -19,7 +19,9 @@ class Dashboard extends Component {
 
 const mapStateToProps = (state) => {
     return {
-		profileComplete: state.user.user.profile_complete
+		profileComplete: state.user.user.profile_complete,
+		teamName: state.team.teamName,
+		teamSeason: state.team.teamSeason
 	} 
 }
 
