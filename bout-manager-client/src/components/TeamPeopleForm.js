@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 import DistrictSelect from "./DistrictSelect.js"
 import TeamRadioContainer from "../containers/TeamRadioContainer.js"
 import RoleSelect from "./RoleSelect.js"
+import { setTeam } from "../actions/teamPerson"
 
 
 class TeamPeopleForm extends Component {
@@ -50,7 +51,7 @@ class TeamPeopleForm extends Component {
 		fetch(`http://localhost:3000/api/v1/team_people`, configObj)
 			.then(resp => resp.json())
 			.then(data => {
-				console.log(data)
+				this.props.setTeam(data.data.attributes)
 			})
 	}
 
@@ -77,4 +78,4 @@ const mapStateToProps = state => {
 	}
 }
 
-export default connect(mapStateToProps)(TeamPeopleForm)
+export default connect(mapStateToProps, { setTeam })(TeamPeopleForm)
