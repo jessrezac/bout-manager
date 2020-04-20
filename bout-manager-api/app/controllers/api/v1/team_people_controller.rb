@@ -3,7 +3,7 @@ class Api::V1::TeamPeopleController < ApplicationController
 
     def create
         team_person = TeamPerson.create(team_person_params)
-        render json: team_person
+        render json: TeamPersonSerializer.new(team_person).serialized_json
     end
 
     private
