@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import ProfileIncompleteNotification from './ProfileIncompleteNotification'
 import TeamUnassignedNotification from "./TeamUnassignedNotification"
 import NewEventLevel from './NewEventLevel'
+import EventListContainer from '../containers/EventListContainer'
 
 class Dashboard extends Component {
     render() {
@@ -15,6 +16,8 @@ class Dashboard extends Component {
 				)}
 
 				<NewEventLevel />
+				
+				<EventListContainer />
 
 			</section>
 		)
