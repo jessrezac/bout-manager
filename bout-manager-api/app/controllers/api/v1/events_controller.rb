@@ -9,10 +9,19 @@ class Api::V1::EventsController < ApplicationController
         render json: events
     end
 
+    def create
+        event = Event.create(event_params)
+        render json: event
+    end
+
     private
 
     def current_user
         User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
+    end
+
+    def event_params
+        params.require(:event).permit(:season_id, :datetime, :location)
     end
 
 end
