@@ -6,7 +6,7 @@ class Api::V1::EventsController < ApplicationController
         season = Season.find(user.person.teams.last.season_id)
         events = season.events
 
-        render json: events
+        render json: EventSerializer.new(events)
     end
 
     def create

@@ -2,21 +2,21 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 class EventListContainer extends Component {
+	state = {
+		events: [],
+	}
 
-    state = {
-        events: []
-    }
+	renderEvents = () => {
+		return this.state.events.map((event) => {
+			return <li key={event.id}>{event.location || "No location"}</li>
+		})
+	}
 
-    render () {
-        return (
-            <div className="container">
-                A list of events
-            </div>
-        )
-    }
+	render() {
+		return <div className="container">{this.renderEvents()}</div>
+	}
 
-    componentDidMount() {
-
+	componentDidMount() {
 		const configObj = {
 			method: "GET",
 			headers: {
@@ -28,10 +28,11 @@ class EventListContainer extends Component {
 		fetch(`http://localhost:3000/api/v1/events`, configObj)
 			.then((resp) => resp.json())
 			.then((data) => {
-				console.log(data)
+				this.setState({
+					events: data.data,
+				})
 			})
-
-    }
+	}
 }
 
 const mapStateToProps = state => {
