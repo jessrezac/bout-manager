@@ -5,6 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import App from "./App"
 import Welcome from "./components/Welcome"
 import Dashboard from "./components/Dashboard"
+import NewEvent from "./components/NewEvent"
 import Settings from "./components/Settings"
 import Header from "./components/Header"
 import { Provider } from "react-redux"
@@ -31,6 +32,9 @@ ReactDOM.render(
 				</Route>
 				<Route path="/dashboard">
 					<Dashboard />
+				</Route>
+				<Route path="/events/new">
+					<NewEvent />
 				</Route>
 				<Route path="/settings">
 					<Settings />

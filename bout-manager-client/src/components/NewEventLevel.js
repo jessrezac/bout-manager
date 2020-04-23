@@ -1,30 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 class NewEventLevel extends Component {
-
-    handleClick = () => {
-        const configObj = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-                Authorization: "Bearer " + this.props.accessToken,
-            },
-            body: JSON.stringify({
-                season_id: this.props.seasonId
-            }),
-        }
-        fetch(
-            `http://localhost:3000/api/v1/events`,
-            configObj
-        )
-            .then((resp) => resp.json())
-            .then((data) => {
-                console.log(data)
-            })
-
-    }
 
     render() {
         return (
@@ -34,7 +12,7 @@ class NewEventLevel extends Component {
                 </div>
                 <div className="level-right">
                     <div className="level-item">
-                        <button className="button" onClick={this.handleClick}>New Event</button>
+                        <Link to="/events/new" className="button is-primary">New Event</Link>
                     </div>
                 </div>
             </div>
