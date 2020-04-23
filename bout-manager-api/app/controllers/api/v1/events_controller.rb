@@ -11,7 +11,7 @@ class Api::V1::EventsController < ApplicationController
 
     def create
         event = Event.create(event_params)
-        render json: event
+        render json: EventSerializer.new(event)
     end
 
     private
@@ -21,7 +21,7 @@ class Api::V1::EventsController < ApplicationController
     end
 
     def event_params
-        params.require(:event).permit(:season_id, :datetime, :location)
+        params.require(:event).permit(:season_id, :datetime, :location, :name)
     end
 
 end
