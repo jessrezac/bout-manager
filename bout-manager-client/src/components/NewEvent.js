@@ -1,19 +1,28 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
+import TagsInput from 'react-tagsinput'
+
+import "react-tagsinput/react-tagsinput.css"
+
 
 class NewEvent extends Component {
 
     state = {
         name: "", 
         location: "",
-        datetime: null
+		datetime: null,
+		teams: []
     }
 
     handleChange = e => {
         this.setState({
             [e.target.name]: e.target.value
         })
-    }
+	}
+	
+	handleTeamInput = teams => {
+		this.setState({teams})
+	}
 
 	handleSubmit = e => {
         e.preventDefault()
@@ -82,10 +91,7 @@ class NewEvent extends Component {
 						</div>
 						<div className="field">
                             <div className="control">
-                                <input list="teams" />
-                                <datalist id="teams">
-                                    <option value=""></option>
-                                </datalist> 
+                                <TagsInput value={this.state.teams} onChange={this.handleTeamInput} className="input is-primary" />
                             </div>
                         </div>
 					</form>
