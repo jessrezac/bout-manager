@@ -4,14 +4,13 @@ import TagsInput from 'react-tagsinput'
 
 import "react-tagsinput/react-tagsinput.css"
 
-
 class NewEvent extends Component {
 
     state = {
         name: "", 
         location: "",
 		datetime: null,
-		teams: []
+		tags: []
     }
 
     handleChange = e => {
@@ -20,14 +19,14 @@ class NewEvent extends Component {
         })
 	}
 	
-	handleTeamInput = teams => {
-		this.setState({teams})
+	handleTeamInput = tags => {
+		this.setState({tags})
 	}
 
 	handleSubmit = e => {
         e.preventDefault()
 		const configObj = {
-			method: "POST",
+			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
 				Accept: "application/json",
@@ -45,6 +44,7 @@ class NewEvent extends Component {
 	}
 
 	render() {
+		
 		return (
 			<section className="section">
 				<div className="container">
@@ -90,14 +90,60 @@ class NewEvent extends Component {
 							</div>
 						</div>
 						<div className="field">
-                            <div className="control">
-                                <TagsInput value={this.state.teams} onChange={this.handleTeamInput} className="input is-primary" />
-                            </div>
-                        </div>
+							<div className="control">
+								<TagsInput
+									value={this.state.tags}
+									onChange={this.handleTeamInput}
+									className="input is-primary"
+									inputProps={{
+										className:
+											"react-tagsinput-input",
+										placeholder: "Test",
+										list: "browsers",
+									}}
+									tagProps={{
+										className: "react-tagsinput-tag tag is-link is-medium",
+										classNameRemove:
+											"react-tagsinput-remove delete",
+									}}
+								/>
+
+								<datalist id="browsers">
+									<option value="Internet Explorer" />
+									<option value="Firefox" />
+									<option value="Chrome" />
+									<option value="Opera" />
+									<option value="Safari" />
+								</datalist>
+							</div>
+						</div>
 					</form>
 				</div>
 			</section>
 		)
+	}
+
+	componentDidMount() {
+		const configObj = {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "application/json",
+				Authorization: "Bearer " + this.props.access_token
+			}
+		}
+		
+		fetch(
+			`http://localhost:3000/api/v1/districts/${this.props.district}/active_teams`,
+			configObj
+		)
+			.then(resp => resp.json())
+			.then(data => {
+				this.setState({
+					teams: data.data
+				})
+			})
+		
 	}
 }
 
