@@ -33,9 +33,13 @@ class NewEvent extends Component {
 				Accept: "application/json",
 				Authorization: "Bearer " + this.props.accessToken,
 			},
-			body: JSON.stringify(
-				this.state
-			),
+			body: JSON.stringify({
+				name: this.state.name,
+				location: this.state.location,
+				datetime: this.state.datetime,
+				teams: this.state.teams,
+				season_id: this.props.seasonId
+			}),
 		}
 		fetch(`http://localhost:3000/api/v1/events`, configObj)
 			.then((resp) => resp.json())

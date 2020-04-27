@@ -11,6 +11,11 @@ class Api::V1::EventsController < ApplicationController
 
     def create
         event = Event.create(event_params)
+        team_params.each do |team_name| 
+            organization = Organization.find_by(name: team_name)
+            team = Team.find_by({organization: organization, season: event_params[:season_id]})
+            TeamEvent.create({event: event, team: team})
+        end
         render json: EventSerializer.new(event)
     end
 
@@ -21,7 +26,11 @@ class Api::V1::EventsController < ApplicationController
     end
 
     def event_params
-        params.require(:event).permit(:season_id, :datetime, :location, :name)
+        params.require(:event).permit(:season_id, :datetime, :location, :name, :teams)
+    end
+
+    def team_params
+        params.require(:teams)
     end
 
 end
