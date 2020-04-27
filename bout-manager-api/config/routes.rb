@@ -12,6 +12,7 @@ Rails.application.routes.draw do
         end
         resources :people
         resources :events
+        resources :teams
         devise_for :users, controllers: {
           registrations: 'api/v1/users/registrations'
         }, skip: [:sessions, :password]

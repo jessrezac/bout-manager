@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import TagsInput from 'react-tagsinput'
+import { fetchTeams } from '../actions/team.js'
 
 import "react-tagsinput/react-tagsinput.css"
 
@@ -41,6 +42,16 @@ class NewEvent extends Component {
 			.then((data) => {
 				console.log(data)
 			})
+	}
+
+	renderTeamOptions = () => {
+		return this.props.teams.map(team => {
+			return (
+				<option key={team.id} value={team.attributes.organization.name}>
+					{team.attributes.organization.name}
+				</option>
+			)
+		})
 	}
 
 	render() {
@@ -98,8 +109,8 @@ class NewEvent extends Component {
 									inputProps={{
 										className:
 											"react-tagsinput-input",
-										placeholder: "Test",
-										list: "browsers",
+										placeholder: "Add Teams",
+										list: "teams",
 									}}
 									tagProps={{
 										className: "react-tagsinput-tag tag is-link is-medium",
@@ -108,12 +119,8 @@ class NewEvent extends Component {
 									}}
 								/>
 
-								<datalist id="browsers">
-									<option value="Internet Explorer" />
-									<option value="Firefox" />
-									<option value="Chrome" />
-									<option value="Opera" />
-									<option value="Safari" />
+								<datalist id="teams">
+									{this.renderTeamOptions()}
 								</datalist>
 							</div>
 						</div>
@@ -124,26 +131,7 @@ class NewEvent extends Component {
 	}
 
 	componentDidMount() {
-		const configObj = {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Accept: "application/json",
-				Authorization: "Bearer " + this.props.access_token
-			}
-		}
-		
-		fetch(
-			`http://localhost:3000/api/v1/districts/${this.props.district}/active_teams`,
-			configObj
-		)
-			.then(resp => resp.json())
-			.then(data => {
-				this.setState({
-					teams: data.data
-				})
-			})
-		
+		this.props.fetchTeams()	
 	}
 }
 
@@ -151,7 +139,8 @@ const mapStateToProps = (state) => {
 	return {
 		accessToken: state.user.user.access_token,
 		seasonId: state.team.team.season_id,
+		teams: state.teams.teams
 	}
 }
 
-export default connect(mapStateToProps)(NewEvent)
+export default connect(mapStateToProps, { fetchTeams })(NewEvent)
