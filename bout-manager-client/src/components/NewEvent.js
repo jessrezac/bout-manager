@@ -11,7 +11,7 @@ class NewEvent extends Component {
         name: "", 
         location: "",
 		datetime: null,
-		tags: []
+		teams: []
     }
 
     handleChange = e => {
@@ -20,22 +20,22 @@ class NewEvent extends Component {
         })
 	}
 	
-	handleTeamInput = tags => {
-		this.setState({tags})
+	handleTeamInput = teams => {
+		this.setState({teams})
 	}
 
 	handleSubmit = e => {
         e.preventDefault()
 		const configObj = {
-			method: "GET",
+			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 				Accept: "application/json",
 				Authorization: "Bearer " + this.props.accessToken,
 			},
-			body: JSON.stringify({
-				season_id: this.props.seasonId,
-			}),
+			body: JSON.stringify(
+				this.state
+			),
 		}
 		fetch(`http://localhost:3000/api/v1/events`, configObj)
 			.then((resp) => resp.json())
@@ -102,8 +102,9 @@ class NewEvent extends Component {
 						</div>
 						<div className="field">
 							<div className="control">
+								<label htmlFor="teams">Teams</label>
 								<TagsInput
-									value={this.state.tags}
+									value={this.state.teams}
 									onChange={this.handleTeamInput}
 									className="input is-primary"
 									inputProps={{
@@ -111,6 +112,7 @@ class NewEvent extends Component {
 											"react-tagsinput-input",
 										placeholder: "Add Teams",
 										list: "teams",
+										name: "teams"
 									}}
 									tagProps={{
 										className: "react-tagsinput-tag tag is-link is-medium",
@@ -122,6 +124,11 @@ class NewEvent extends Component {
 								<datalist id="teams">
 									{this.renderTeamOptions()}
 								</datalist>
+							</div>
+						</div>
+						<div class="field">
+							<div class="control">
+								<button class="button is-primary">Submit</button>
 							</div>
 						</div>
 					</form>
