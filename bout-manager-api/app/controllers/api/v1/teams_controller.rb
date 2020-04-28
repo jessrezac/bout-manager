@@ -5,7 +5,7 @@ class Api::V1::TeamsController < ApplicationController
         user = current_user
         season = Season.find(user.person.teams.last.season_id)
         teams = season.teams
-
+        
         render json: TeamSerializer.new(teams)
     end
 

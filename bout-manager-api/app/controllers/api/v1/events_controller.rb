@@ -16,7 +16,12 @@ class Api::V1::EventsController < ApplicationController
             team = Team.find_by({organization: organization, season: event_params[:season_id]})
             TeamEvent.create({event: event, team: team})
         end
-        render json: EventSerializer.new(event)
+
+        options = {
+            include: [:teams, :season]
+        }
+
+        render json: EventSerializer.new(event, options)
     end
 
     private
