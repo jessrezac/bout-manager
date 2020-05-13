@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "bulma-checkradio": "^1.1.1",
     "connected-react-router": "^6.8.0",
+    "json-api-normalizer": "^0.4.16",
     "react": "^16.13.0",
     "react-aria-modal": "^4.0.0",
     "react-dom": "^16.13.0",

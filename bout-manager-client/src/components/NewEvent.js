@@ -3,6 +3,8 @@ import { connect } from "react-redux"
 import TagsInput from "react-tagsinput"
 import { fetchTeams } from "../actions/team.js"
 
+import normalize from "json-api-normalizer"
+
 import "react-tagsinput/react-tagsinput.css"
 
 class NewEvent extends Component {
@@ -44,6 +46,8 @@ class NewEvent extends Component {
 			.then((resp) => resp.json())
 			.then((data) => {
 				console.log(data)
+				console.log("Output...")
+				console.log(normalize(data))
 			})
 	}
 
