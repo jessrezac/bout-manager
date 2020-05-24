@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 import TagsInput from "react-tagsinput"
 import { fetchTeams } from "../actions/team.js"
+import { setEntities } from "../actions/entities.js"
 
 import normalize from "json-api-normalizer"
 
@@ -45,9 +46,9 @@ class NewEvent extends Component {
 		fetch(`http://localhost:3000/api/v1/events`, configObj)
 			.then((resp) => resp.json())
 			.then((data) => {
-				console.log(data)
-				console.log("Output...")
-				console.log(normalize(data))
+				let normalizedData = normalize(data)
+
+				this.props.setEntities(normalizedData)
 			})
 	}
 
@@ -132,9 +133,9 @@ class NewEvent extends Component {
 								</datalist>
 							</div>
 						</div>
-						<div class="field">
-							<div class="control">
-								<button class="button is-primary">
+						<div className="field">
+							<div className="control">
+								<button className="button is-primary">
 									Submit
 								</button>
 							</div>
@@ -158,4 +159,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps, { fetchTeams })(NewEvent)
+export default connect(mapStateToProps, { fetchTeams, setEntities })(NewEvent)
