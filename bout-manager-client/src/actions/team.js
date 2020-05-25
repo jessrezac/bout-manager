@@ -1,9 +1,7 @@
 export function fetchTeams() {
-
-    return (dispatch, getState) => {
-        dispatch({type: 'START_ADDING_TEAMS_REQUEST'})
-        console.log(getState())
-        const configObj = {
+	return (dispatch, getState) => {
+		dispatch({ type: "START_ADDING_TEAMS_REQUEST" })
+		const configObj = {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
@@ -12,13 +10,10 @@ export function fetchTeams() {
 			},
 		}
 
-		fetch(
-			`http://localhost:3000/api/v1/teams`,
-			configObj
-		)
+		fetch(`http://localhost:3000/api/v1/teams`, configObj)
 			.then((resp) => resp.json())
 			.then((data) => {
-                dispatch({type: 'ADD_TEAMS', teams: data.data})
+				dispatch({ type: "ADD_TEAMS", teams: data.data })
 			})
-    }
+	}
 }

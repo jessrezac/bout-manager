@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import { Link } from "react-router-dom"
 
 class EventListContainer extends Component {
 	state = {
@@ -8,7 +9,14 @@ class EventListContainer extends Component {
 
 	renderEvents = () => {
 		return this.state.events.map((event) => {
-			return <li key={event.id}>{event.location || "No location"}</li>
+			return (
+				<li key={event.id}>
+					<Link to={`/events/${event.id}`}>
+						{event.attributes.name || "Event"}&nbsp;&bull;&nbsp;
+						{event.attributes.location || "No Location"}
+					</Link>
+				</li>
+			)
 		})
 	}
 
@@ -35,10 +43,10 @@ class EventListContainer extends Component {
 	}
 }
 
-const mapStateToProps = state => {
-    return {
+const mapStateToProps = (state) => {
+	return {
 		seasonId: state.team.team.season_id,
-		accessToken: state.user.user.access_token
+		accessToken: state.user.user.access_token,
 	}
 }
 
