@@ -4,11 +4,8 @@ import ProfileForm from "./ProfileForm.js"
 import TeamPeopleForm from "./TeamPeopleForm.js"
 
 class Settings extends Component {
-    
-
 	render() {
-
-        return (
+		return (
 			<section className="section">
 				<div className="container">
 					<div className="columns">
@@ -31,10 +28,14 @@ class Settings extends Component {
 								<p className="menu-label">Admin</p>
 								<ul className="menu-list">
 									<li>
-										<a>District Settings</a>
+										<Link to="/settings/district">
+											District Settings
+										</Link>
 									</li>
 									<li>
-										<a>Round Settings</a>
+										<Link to="/settings/round">
+											Round Settings
+										</Link>
 									</li>
 								</ul>
 							</aside>
