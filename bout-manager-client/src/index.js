@@ -5,8 +5,10 @@ import * as serviceWorker from "./serviceWorker"
 import App from "./App"
 import Welcome from "./components/Welcome"
 import Dashboard from "./components/Dashboard"
-import NewEvent from "./components/NewEvent"
+import EventsNew from "./components/EventsNew"
 import EventsPage from "./containers/EventsPage"
+import EventListContainer from "./containers/EventListContainer"
+
 import Settings from "./components/Settings"
 import Header from "./components/Header"
 import { Provider } from "react-redux"
@@ -34,7 +36,10 @@ ReactDOM.render(
 					<Dashboard />
 				</Route>
 				<Route path="/events/new">
-					<NewEvent />
+					<EventsNew />
+				</Route>
+				<Route exact path="/events">
+					<EventListContainer />
 				</Route>
 				<Route
 					path="/events"

@@ -8,7 +8,7 @@ import normalize from "json-api-normalizer"
 
 import "react-tagsinput/react-tagsinput.css"
 
-class NewEvent extends Component {
+class EventsNew extends Component {
 	state = {
 		name: "",
 		location: "",
@@ -159,4 +159,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps, { fetchTeams, setEntities })(NewEvent)
+export default connect(mapStateToProps, { fetchTeams, setEntities })(EventsNew)
