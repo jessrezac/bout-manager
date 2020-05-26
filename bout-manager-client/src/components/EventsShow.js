@@ -38,8 +38,29 @@ class EventsShow extends Component {
 			.then((data) => {
 				let normalizedData = normalize(data)
 
-				console.log(data)
+				this.props.setEntities(normalizedData)
+			})
+	}
 
+	deleteEvent = () => {
+		const configObj = {
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "application/json",
+				Authorization: "Bearer " + this.props.accessToken,
+			},
+		}
+
+		fetch(
+			"http://localhost:3000/api/v1/events/" +
+				this.props.match.params.eventId,
+			configObj
+		)
+			.then((resp) => resp.json())
+			.then((data) => {
+				let normalizedData = normalize(data)
+				this.props.history.push("/events")
 				this.props.setEntities(normalizedData)
 			})
 	}
@@ -97,6 +118,7 @@ class EventsShow extends Component {
 	render() {
 		const event = this.props.events[this.props.match.params.eventId]
 		const date = new Date(event.attributes.datetime)
+
 		return (
 			<div>
 				<h1 className="title">{event.attributes.name}</h1>
@@ -110,6 +132,20 @@ class EventsShow extends Component {
 				<table className="table is-hoverable">
 					<tbody>{this.renderTeams(event.attributes.teams)}</tbody>
 				</table>
+
+				<div className="buttons">
+					<button
+						className="button is-warning"
+						onClick={this.deleteEvent}>
+						<span className="icon is-large is-white">
+							<i
+								className="fas fa-trash-alt fa-lg"
+								aria-hidden="true"></i>
+							<span className="is-sr-only">Trash</span>
+						</span>
+						<span>Delete Event</span>
+					</button>
+				</div>
 			</div>
 		)
 	}

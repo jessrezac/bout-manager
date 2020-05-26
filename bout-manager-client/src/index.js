@@ -7,6 +7,8 @@ import Welcome from "./components/Welcome"
 import Dashboard from "./components/Dashboard"
 import EventsNew from "./components/EventsNew"
 import EventsPage from "./containers/EventsPage"
+import EventListContainer from "./containers/EventListContainer"
+
 import Settings from "./components/Settings"
 import Header from "./components/Header"
 import { Provider } from "react-redux"
@@ -35,6 +37,9 @@ ReactDOM.render(
 				</Route>
 				<Route path="/events/new">
 					<EventsNew />
+				</Route>
+				<Route exact path="/events">
+					<EventListContainer />
 				</Route>
 				<Route
 					path="/events"

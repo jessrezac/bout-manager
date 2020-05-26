@@ -42,15 +42,16 @@ class Api::V1::EventsController < ApplicationController
             end
         end
         
+        events = @event.season.events 
         options = {
             include: [:teams, :season]
         }
 
-        render json: EventSerializer.new(@event, options)
+        render json: EventSerializer.new(events, options)
     end
 
     def destroy
-        season = @event.season_id
+        season = Season.find(@event.season_id)
         @event.destroy
 
         events = season.events

@@ -4,7 +4,6 @@ import { connect } from "react-redux"
 import ProfileIncompleteNotification from "../components/ProfileIncompleteNotification"
 import TeamUnassignedNotification from "../components/TeamUnassignedNotification"
 import NewEventLevel from "../components/NewEventLevel"
-import EventListContainer from "./EventListContainer"
 import EventsShow from "../components/EventsShow"
 import normalize from "json-api-normalizer"
 import { setEntities } from "../actions/entities.js"
@@ -21,16 +20,11 @@ class Dashboard extends Component {
 
 				<NewEventLevel />
 
-				<div className="columns">
-					<div className="column is-one-quarter">
-						<EventListContainer />
-					</div>
-					<div className="column">
-						<Route
-							path={`${this.props.match.url}/:eventId`}
-							component={EventsShow}
-						/>
-					</div>
+				<div className="container">
+					<Route
+						path={`${this.props.match.url}/:eventId`}
+						component={EventsShow}
+					/>
 				</div>
 			</section>
 		)

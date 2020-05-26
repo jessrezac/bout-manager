@@ -1,25 +1,39 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import { Link } from "react-router-dom"
+import EventRow from "../components/EventRow"
 
 class EventListContainer extends Component {
 	renderEvents = () => {
 		return Object.keys(this.props.events).map((eventId) => {
 			return (
-				<li key={eventId}>
-					<Link to={`/events/${eventId}`}>
-						{this.props.events[eventId].attributes.name || "Event"}
-						&nbsp;&bull;&nbsp;
-						{this.props.events[eventId].attributes.location ||
-							"No Location"}
-					</Link>
-				</li>
+				<EventRow
+					key={eventId}
+					id={eventId}
+					{...this.props.events[eventId].attributes}
+				/>
 			)
 		})
 	}
 
 	render() {
-		return <div className="container">{this.renderEvents()}</div>
+		return (
+			<section className="section">
+				<div className="container">
+					<h1 className="title is-1">Events</h1>
+					<table className="table is-fullwidth is-striped">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Location</th>
+								<th>Date</th>
+								<th>Options</th>
+							</tr>
+						</thead>
+						<tbody>{this.renderEvents()}</tbody>
+					</table>
+				</div>
+			</section>
+		)
 	}
 }
 
