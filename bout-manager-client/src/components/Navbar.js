@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import { Link } from "react-router-dom";
+import React, { Component } from "react"
+import { Link } from "react-router-dom"
 
 class Navbar extends Component {
-    render() {
-        return (
+	render() {
+		return (
 			<nav
 				id="navbar"
 				className="navbar is-info"
@@ -37,8 +37,8 @@ class Navbar extends Component {
 							Home
 						</Link>
 
-						<Link to="/dashboard" className="navbar-item">
-							Dashboard
+						<Link to="/events" className="navbar-item">
+							Events
 						</Link>
 
 						<Link to="/welcome" className="navbar-item">
@@ -92,7 +92,7 @@ class Navbar extends Component {
 				</div>
 			</nav>
 		)
-    }
+	}
 }
 
 export default Navbar
