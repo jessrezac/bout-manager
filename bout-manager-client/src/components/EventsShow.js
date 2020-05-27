@@ -87,7 +87,7 @@ class EventsShow extends Component {
 
 							<Link
 								to={`/teams/${team.id}/edit`}
-								className="button is-warning">
+								className="button is-link">
 								<span className="icon is-large is-white">
 									<i
 										className="fas fa-pencil-alt fa-lg"
@@ -120,33 +120,52 @@ class EventsShow extends Component {
 		const date = new Date(event.attributes.datetime)
 
 		return (
-			<div>
-				<h1 className="title">{event.attributes.name}</h1>
-				<h2 className="subtitle">
-					{event.attributes.location}
-					&nbsp;&bull;&nbsp;
-					{new Intl.DateTimeFormat("en-US").format(date)}
-				</h2>
-
-				<h2 className="subtitle">Teams</h2>
-				<table className="table is-hoverable">
-					<tbody>{this.renderTeams(event.attributes.teams)}</tbody>
-				</table>
-
-				<div className="buttons">
-					<button
-						className="button is-warning"
-						onClick={this.deleteEvent}>
-						<span className="icon is-large is-white">
-							<i
-								className="fas fa-trash-alt fa-lg"
-								aria-hidden="true"></i>
-							<span className="is-sr-only">Trash</span>
-						</span>
-						<span>Delete Event</span>
-					</button>
+			<>
+				<div className="content">
+					<h1 className="title is-1">{event.attributes.name}</h1>
+					<p className="content">
+						{event.attributes.location}
+						&nbsp;&bull;&nbsp;
+						{new Intl.DateTimeFormat("en-US").format(date)}
+					</p>
 				</div>
-			</div>
+
+				<div className="content">
+					<h2 className="title is-3">Teams</h2>
+					<table className="table is-hoverable">
+						<tbody>
+							{this.renderTeams(event.attributes.teams)}
+						</tbody>
+					</table>
+				</div>
+
+				<div className="content">
+					<div className="buttons">
+						<Link
+							className="button is-link"
+							to={`/events/${event.id}/edit`}>
+							<span className="icon is-large is-white">
+								<i
+									className="fas fa-pencil-alt fa-lg"
+									aria-hidden="true"></i>
+								<span className="is-sr-only">Pencil</span>
+							</span>
+							<span>Edit Event</span>
+						</Link>
+						<button
+							className="button is-danger"
+							onClick={this.deleteEvent}>
+							<span className="icon is-large is-white">
+								<i
+									className="fas fa-trash-alt fa-lg"
+									aria-hidden="true"></i>
+								<span className="is-sr-only">Trash</span>
+							</span>
+							<span>Delete Event</span>
+						</button>
+					</div>
+				</div>
+			</>
 		)
 	}
 }

@@ -1,8 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import TagsInput from "react-tagsinput"
-import { fetchTeams } from "../actions/team.js"
-import { setEntities } from "../actions/entities.js"
+import { setEntities } from "../actions/entities"
+import EventsForm from "./EventsForm"
 
 import normalize from "json-api-normalizer"
 
@@ -13,17 +12,17 @@ class EventsNew extends Component {
 		name: "",
 		location: "",
 		datetime: null,
-		teams: [],
+		selectedTeams: [],
+	}
+
+	handleTeamInput = (selectedTeams) => {
+		this.setState({ selectedTeams })
 	}
 
 	handleChange = (e) => {
 		this.setState({
 			[e.target.name]: e.target.value,
 		})
-	}
-
-	handleTeamInput = (teams) => {
-		this.setState({ teams })
 	}
 
 	handleSubmit = (e) => {
@@ -39,7 +38,7 @@ class EventsNew extends Component {
 				name: this.state.name,
 				location: this.state.location,
 				datetime: this.state.datetime,
-				teams: this.state.teams,
+				teams: this.state.selectedTeams,
 				season_id: this.props.seasonId,
 			}),
 		}
@@ -52,102 +51,20 @@ class EventsNew extends Component {
 			})
 	}
 
-	renderTeamOptions = () => {
-		return this.props.teams.map((team) => {
-			return (
-				<option key={team.id} value={team.attributes.organization.name}>
-					{team.attributes.organization.name}
-				</option>
-			)
-		})
-	}
-
 	render() {
 		return (
 			<section className="section">
 				<div className="container">
 					<h1 className="title is-1">Add An Event</h1>
-					<form onSubmit={this.handleSubmit}>
-						<div className="field">
-							<div className="control">
-								<label htmlFor="name">Event Name</label>
-								<input
-									type="text"
-									className="input is-primary"
-									placeholder="Event Name"
-									name="name"
-									onChange={this.handleChange}
-									value={this.state.name}
-								/>
-							</div>
-						</div>
-						<div className="field is-grouped">
-							<div className="control">
-								<label htmlFor="location">Location</label>
-								<input
-									type="text"
-									className="input is-primary"
-									placeholder="Location"
-									name="location"
-									onChange={this.handleChange}
-									value={this.state.location}
-								/>
-							</div>
-							<div className="control">
-								<div className="control">
-									<label htmlFor="datetime">Date/Time</label>
-									<input
-										type="datetime-local"
-										className="input is-primary"
-										placeholder="Date/Time"
-										name="datetime"
-										onChange={this.handleChange}
-										value={this.state.dateTime}
-									/>
-								</div>
-							</div>
-						</div>
-						<div className="field">
-							<div className="control">
-								<label htmlFor="teams">Teams</label>
-								<TagsInput
-									value={this.state.teams}
-									onChange={this.handleTeamInput}
-									className="input is-primary"
-									inputProps={{
-										className: "react-tagsinput-input",
-										placeholder: "Add Teams",
-										list: "teams",
-										name: "teams",
-									}}
-									tagProps={{
-										className:
-											"react-tagsinput-tag tag is-link is-medium",
-										classNameRemove:
-											"react-tagsinput-remove delete",
-									}}
-								/>
-
-								<datalist id="teams">
-									{this.renderTeamOptions()}
-								</datalist>
-							</div>
-						</div>
-						<div className="field">
-							<div className="control">
-								<button className="button is-primary">
-									Submit
-								</button>
-							</div>
-						</div>
-					</form>
+					<EventsForm
+						handleSubmit={this.handleSubmit}
+						handleChange={this.handleChange}
+						handleTeamInput={this.handleTeamInput}
+						{...this.state}
+					/>
 				</div>
 			</section>
 		)
-	}
-
-	componentDidMount() {
-		this.props.fetchTeams()
 	}
 }
 
@@ -155,8 +72,7 @@ const mapStateToProps = (state) => {
 	return {
 		accessToken: state.user.user.access_token,
 		seasonId: state.team.team.season_id,
-		teams: state.teams.teams,
 	}
 }
 
-export default connect(mapStateToProps, { fetchTeams, setEntities })(EventsNew)
+export default connect(mapStateToProps, { setEntities })(EventsNew)

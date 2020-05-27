@@ -45,6 +45,7 @@ ReactDOM.render(
 					path="/events"
 					render={(routerProps) => <EventsPage {...routerProps} />}
 				/>
+
 				<Route path="/settings">
 					<Settings />
 				</Route>

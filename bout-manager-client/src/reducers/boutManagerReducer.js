@@ -10,7 +10,6 @@ const rootReducer = (history) =>
 		router: connectRouter(history),
 		user: userReducer,
 		team: teamPersonReducer,
-		teams: teamReducer,
 		entities: entitiesReducer,
 	})
 

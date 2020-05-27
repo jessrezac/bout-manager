@@ -5,10 +5,11 @@ import ProfileIncompleteNotification from "../components/ProfileIncompleteNotifi
 import TeamUnassignedNotification from "../components/TeamUnassignedNotification"
 import NewEventLevel from "../components/NewEventLevel"
 import EventsShow from "../components/EventsShow"
+import EventsEdit from "../components/EventsEdit"
 import normalize from "json-api-normalizer"
 import { setEntities } from "../actions/entities.js"
 
-class Dashboard extends Component {
+class EventsPage extends Component {
 	render() {
 		return (
 			<section className="section">
@@ -22,8 +23,14 @@ class Dashboard extends Component {
 
 				<div className="container">
 					<Route
+						exact
 						path={`${this.props.match.url}/:eventId`}
 						component={EventsShow}
+					/>
+
+					<Route
+						path={`${this.props.match.url}/:eventId/edit`}
+						component={EventsEdit}
 					/>
 				</div>
 			</section>
@@ -58,4 +65,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps, { setEntities })(Dashboard)
+export default connect(mapStateToProps, { setEntities })(EventsPage)
