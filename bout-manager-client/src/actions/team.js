@@ -16,7 +16,6 @@ export function fetchTeams() {
 			.then((resp) => resp.json())
 			.then((data) => {
 				let normalizedData = normalize(data)
-				console.log(normalizedData)
 				dispatch({ type: "SET_TEAMS", team: normalizedData })
 			})
 	}
