@@ -1,20 +1,26 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import TagsInput from "react-tagsinput"
+// import TagsInput from "react-tagsinput"
 import { fetchTeams } from "../actions/team.js"
 
 class EventsForm extends Component {
+	state = {
+		teamToAdd: "",
+	}
+
 	renderTeamOptions = () => {
 		return Object.keys(this.props.teams).map((teamId) => {
 			return (
-				<option
-					key={teamId}
-					value={
-						this.props.teams[teamId].attributes.organization.name
-					}>
+				<option key={teamId} value={teamId}>
 					{this.props.teams[teamId].attributes.organization.name}
 				</option>
 			)
+		})
+	}
+
+	handleTeamChange = (e) => {
+		this.setState({
+			teamToAdd: e.target.value,
 		})
 	}
 
@@ -63,24 +69,13 @@ class EventsForm extends Component {
 				<div className="field">
 					<div className="control">
 						<label htmlFor="teams">Teams</label>
-						<TagsInput
-							value={this.props.selectedTeams}
-							onChange={this.props.handleTeamInput}
+						<input
+							value={this.state.teamToAdd}
+							onChange={this.handleTeamChange}
+							onBlur={this.props.handleTeamInput}
 							className="input is-primary"
-							inputProps={{
-								className: "react-tagsinput-input",
-								placeholder: "Add Teams",
-								list: "teams",
-								name: "teams",
-							}}
-							tagProps={{
-								className:
-									"react-tagsinput-tag tag is-link is-medium",
-								classNameRemove:
-									"react-tagsinput-remove delete",
-							}}
+							list="teams"
 						/>
-
 						<datalist id="teams">
 							{this.renderTeamOptions()}
 						</datalist>

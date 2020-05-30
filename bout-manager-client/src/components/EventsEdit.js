@@ -13,10 +13,13 @@ class EventsEdit extends Component {
 		selectedTeams: [],
 	}
 
-	// TODO: state should be set to actual event details
+	handleTeamInput = (teamInputEvent) => {
+		const selectedTeam = this.props.teams[teamInputEvent.target.value]
+		const newTeams = this.state.selectedTeams.concat(selectedTeam)
 
-	handleTeamInput = (selectedTeams) => {
-		this.setState({ selectedTeams })
+		this.setState({
+			selectedTeams: newTeams,
+		})
 	}
 
 	handleChange = (e) => {
@@ -27,6 +30,9 @@ class EventsEdit extends Component {
 
 	handleSubmit = (e) => {
 		e.preventDefault()
+		let teams = Object.keys(this.state.selectedTeams).map((team) => {
+			return this.state.selectedTeams[team].id
+		})
 		const configObj = {
 			method: "PATCH",
 			headers: {
@@ -38,10 +44,13 @@ class EventsEdit extends Component {
 				name: this.state.name,
 				location: this.state.location,
 				datetime: this.state.datetime,
-				teams: this.state.selectedTeams,
+				teams: teams,
 			}),
 		}
-		fetch(`http://localhost:3000/api/v1/events`, configObj)
+		fetch(
+			`http://localhost:3000/api/v1/events/${this.props.match.params.eventId}`,
+			configObj
+		)
 			.then((resp) => resp.json())
 			.then((data) => {
 				let normalizedData = normalize(data)
@@ -67,12 +76,11 @@ class EventsEdit extends Component {
 
 	componentDidMount() {
 		const event = this.props.events[this.props.match.params.eventId]
-
 		this.setState({
-			name: event.name,
-			location: event.location,
-			datetime: event.datetime,
-			selectedTeams: event.teams,
+			name: event.attributes.name,
+			location: event.attributes.location,
+			datetime: event.attributes.datetime,
+			selectedTeams: event.attributes.teams,
 		})
 	}
 }
@@ -81,6 +89,7 @@ const mapStateToProps = (state) => {
 	return {
 		accessToken: state.user.user.access_token,
 		events: state.entities.event,
+		teams: state.entities.team,
 	}
 }
 

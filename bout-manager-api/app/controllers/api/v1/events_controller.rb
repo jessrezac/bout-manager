@@ -31,17 +31,33 @@ class Api::V1::EventsController < ApplicationController
 
     def update
 
+        # update event
         @event.update(event_params)
 
+        # handle team params
         if team_params
-            team_events = TeamEvent.where(event_id: @event.id)
-            team_events.each do |team_event|
-                unless team_params.include?(team_event.team_id)
+
+            team_ids = team_params.map do |team_id|
+                team_id.to_i
+            end
+
+            # first ensure that a TeamEvent exists for each team in the teams array
+            team_params.each do |team_id|
+                unless @event.teams.exists?(team_id)
+                    team = Team.find(team_id)
+                    TeamEvent.create( event: @event, team: team)
+                end
+            end
+
+            # then ensure that TeamEvents for teams no longer in the array are deleted
+            @event.team_events.each do |team_event|
+                unless team_ids.include?(team_event.team_id)
                     team_event.destroy
                 end
             end
         end
         
+        # send event back to client
         events = @event.season.events 
         options = {
             include: [:teams, :season]
