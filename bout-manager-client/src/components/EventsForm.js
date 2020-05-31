@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-// import TagsInput from "react-tagsinput"
+import TeamTable from "../containers/TeamTable"
 import { fetchTeams } from "../actions/team.js"
 
 class EventsForm extends Component {
@@ -29,7 +29,9 @@ class EventsForm extends Component {
 			<form onSubmit={this.props.handleSubmit}>
 				<div className="field">
 					<div className="control">
-						<label htmlFor="name">Event Name</label>
+						<label htmlFor="name" className="label">
+							Event Name
+						</label>
 						<input
 							type="text"
 							className="input is-primary"
@@ -42,7 +44,9 @@ class EventsForm extends Component {
 				</div>
 				<div className="field is-grouped">
 					<div className="control">
-						<label htmlFor="location">Location</label>
+						<label htmlFor="location" className="label">
+							Location
+						</label>
 						<input
 							type="text"
 							className="input is-primary"
@@ -54,7 +58,9 @@ class EventsForm extends Component {
 					</div>
 					<div className="control">
 						<div className="control">
-							<label htmlFor="datetime">Date/Time</label>
+							<label htmlFor="datetime" className="label">
+								Date/Time
+							</label>
 							<input
 								type="datetime-local"
 								className="input is-primary"
@@ -68,13 +74,18 @@ class EventsForm extends Component {
 				</div>
 				<div className="field">
 					<div className="control">
-						<label htmlFor="teams">Teams</label>
+						<p className="label">Teams</p>
+						<TeamTable eventTeams={this.props.selectedTeams} />
+						<label htmlFor="add-a-team" className="label">
+							Add A Team
+						</label>
 						<input
 							value={this.state.teamToAdd}
 							onChange={this.handleTeamChange}
 							onBlur={this.props.handleTeamInput}
 							className="input is-primary"
 							list="teams"
+							name="add-a-team"
 						/>
 						<datalist id="teams">
 							{this.renderTeamOptions()}

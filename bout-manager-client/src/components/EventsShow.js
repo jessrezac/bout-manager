@@ -3,45 +3,9 @@ import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import { setEntities } from "../actions/entities.js"
 import normalize from "json-api-normalizer"
+import TeamTable from "../containers/TeamTable"
 
 class EventsShow extends Component {
-	removeTeam = (teams, id) => {
-		// Create array of teams that excludes id
-		let updatedTeams = []
-
-		for (let i = 0; i < teams.length; i++) {
-			if (teams[i].id !== id) {
-				updatedTeams.push(teams[i].id)
-			}
-		}
-
-		const configObj = {
-			method: "PATCH",
-			headers: {
-				"Content-Type": "application/json",
-				Accept: "application/json",
-				Authorization: "Bearer " + this.props.accessToken,
-			},
-			body: JSON.stringify({
-				teams: updatedTeams,
-				event: {
-					id: this.props.match.params.eventId,
-				},
-			}),
-		}
-		fetch(
-			"http://localhost:3000/api/v1/events/" +
-				this.props.match.params.eventId,
-			configObj
-		)
-			.then((resp) => resp.json())
-			.then((data) => {
-				let normalizedData = normalize(data)
-
-				this.props.setEntities(normalizedData)
-			})
-	}
-
 	deleteEvent = () => {
 		const configObj = {
 			method: "DELETE",
@@ -65,56 +29,6 @@ class EventsShow extends Component {
 			})
 	}
 
-	renderTeams = (teams) => {
-		return teams.map((team) => {
-			const teamObject = this.props.teams[team.id]
-			return (
-				<tr key={team.id}>
-					<td>{teamObject.attributes.teamName}</td>
-					<td>
-						<div className="buttons">
-							<Link
-								to={`/teams/${team.id}`}
-								className="button is-info">
-								<span className="icon is-large is-white">
-									<i
-										className="fas fa-eye fa-lg"
-										aria-hidden="true"></i>
-									<span className="is-sr-only">Eye</span>
-								</span>
-								<span>View</span>
-							</Link>
-
-							<Link
-								to={`/teams/${team.id}/edit`}
-								className="button is-link">
-								<span className="icon is-large is-white">
-									<i
-										className="fas fa-pencil-alt fa-lg"
-										aria-hidden="true"></i>
-									<span className="is-sr-only">Pencil</span>
-								</span>
-								<span>Edit</span>
-							</Link>
-
-							<button
-								onClick={() => this.removeTeam(teams, team.id)}
-								className="button is-danger">
-								<span className="icon is-large is-white">
-									<i
-										className="fas fa-minus-circle fa-lg"
-										aria-hidden="true"></i>
-									<span className="is-sr-only">Minus</span>
-								</span>
-								<span>Remove</span>
-							</button>
-						</div>
-					</td>
-				</tr>
-			)
-		})
-	}
-
 	render() {
 		const event = this.props.events[this.props.match.params.eventId]
 		const date = new Date(event.attributes.datetime)
@@ -132,11 +46,10 @@ class EventsShow extends Component {
 
 				<div className="content">
 					<h2 className="title is-3">Teams</h2>
-					<table className="table is-hoverable">
-						<tbody>
-							{this.renderTeams(event.attributes.teams)}
-						</tbody>
-					</table>
+					<TeamTable
+						eventTeams={event.attributes.teams}
+						eventId={event.id}
+					/>
 				</div>
 
 				<div className="content">
