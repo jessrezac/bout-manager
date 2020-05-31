@@ -4,30 +4,14 @@ import TeamTable from "../containers/TeamTable"
 import { fetchTeams } from "../actions/team.js"
 
 class EventsForm extends Component {
-	state = {
-		teamToAdd: "",
-	}
-
 	renderTeamOptions = () => {
 		return Object.keys(this.props.teams).map((teamId) => {
+			let teamName = this.props.teams[teamId].attributes.organization.name
 			return (
 				<option key={teamId} value={teamId}>
-					{this.props.teams[teamId].attributes.organization.name}
+					{teamName}
 				</option>
 			)
-		})
-	}
-
-	handleTeamChange = (e) => {
-		this.setState({
-			teamToAdd: e.target.value,
-		})
-	}
-
-	handleTeamBlur = (e) => {
-		this.props.handleTeamInput(e)
-		this.setState({
-			teamToAdd: "",
 		})
 	}
 
@@ -89,17 +73,17 @@ class EventsForm extends Component {
 						<label htmlFor="add-a-team" className="label">
 							Add A Team
 						</label>
-						<input
-							value={this.state.teamToAdd}
-							onChange={this.handleTeamChange}
-							onBlur={this.handleTeamBlur}
-							className="input is-primary"
-							list="teams"
-							name="add-a-team"
-						/>
-						<datalist id="teams">
-							{this.renderTeamOptions()}
-						</datalist>
+						<div className="select">
+							<select
+								onChange={this.props.handleTeamInput}
+								className="is-primary"
+								name="add-a-team">
+								<option disabled value={""}>
+									Choose A Team
+								</option>
+								{this.renderTeamOptions()}
+							</select>
+						</div>
 					</div>
 				</div>
 				<div className="field">
