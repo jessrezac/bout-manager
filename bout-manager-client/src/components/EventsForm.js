@@ -24,6 +24,13 @@ class EventsForm extends Component {
 		})
 	}
 
+	handleTeamBlur = (e) => {
+		this.props.handleTeamInput(e)
+		this.setState({
+			teamToAdd: "",
+		})
+	}
+
 	render() {
 		return (
 			<form onSubmit={this.props.handleSubmit}>
@@ -85,7 +92,7 @@ class EventsForm extends Component {
 						<input
 							value={this.state.teamToAdd}
 							onChange={this.handleTeamChange}
-							onBlur={this.props.handleTeamInput}
+							onBlur={this.handleTeamBlur}
 							className="input is-primary"
 							list="teams"
 							name="add-a-team"
