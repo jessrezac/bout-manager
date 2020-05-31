@@ -15,8 +15,19 @@ class EventsNew extends Component {
 		selectedTeams: [],
 	}
 
-	handleTeamInput = (selectedTeams) => {
-		this.setState({ selectedTeams })
+	handleTeamInput = (teamInputEvent) => {
+		const selectedTeam = this.props.teams[teamInputEvent.target.value]
+		if (
+			this.state.selectedTeams.filter(
+				(team) =>
+					Number(team.id) === Number(teamInputEvent.target.value)
+			).length === 0
+		) {
+			const newTeams = this.state.selectedTeams.concat(selectedTeam)
+			this.setState({
+				selectedTeams: newTeams,
+			})
+		}
 	}
 
 	handleChange = (e) => {
@@ -72,6 +83,7 @@ const mapStateToProps = (state) => {
 	return {
 		accessToken: state.user.user.access_token,
 		seasonId: state.team.team.season_id,
+		teams: state.entities.team,
 	}
 }
 
