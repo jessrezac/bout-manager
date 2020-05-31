@@ -30,6 +30,15 @@ class EventsNew extends Component {
 		}
 	}
 
+	handleTeamRemove = (teamId) => {
+		let newTeams = this.state.selectedTeams.filter(
+			(team) => Number(team.id) !== Number(teamId)
+		)
+		this.setState({
+			selectedTeams: newTeams,
+		})
+	}
+
 	handleChange = (e) => {
 		this.setState({
 			[e.target.name]: e.target.value,
@@ -71,6 +80,7 @@ class EventsNew extends Component {
 						handleSubmit={this.handleSubmit}
 						handleChange={this.handleChange}
 						handleTeamInput={this.handleTeamInput}
+						handleTeamRemove={this.handleTeamRemove}
 						{...this.state}
 					/>
 				</div>

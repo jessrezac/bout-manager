@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 
 class TeamRow extends Component {
 	render() {
-		let { teamId, teamName, removeTeam } = this.props
+		let { teamId, teamName, handleTeamRemove } = this.props
 
 		return (
 			<tr>
@@ -35,7 +35,7 @@ class TeamRow extends Component {
 						</Link>
 
 						<button
-							onClick={() => removeTeam(teamId)}
+							onClick={() => handleTeamRemove(teamId)}
 							className="button is-danger">
 							<span className="icon is-large is-white">
 								<i

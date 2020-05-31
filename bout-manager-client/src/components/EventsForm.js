@@ -75,7 +75,10 @@ class EventsForm extends Component {
 				<div className="field">
 					<div className="control">
 						<p className="label">Teams</p>
-						<TeamTable eventTeams={this.props.selectedTeams} />
+						<TeamTable
+							eventTeams={this.props.selectedTeams}
+							handleTeamRemove={this.props.handleTeamRemove}
+						/>
 						<label htmlFor="add-a-team" className="label">
 							Add A Team
 						</label>

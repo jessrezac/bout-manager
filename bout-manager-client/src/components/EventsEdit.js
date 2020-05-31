@@ -13,6 +13,15 @@ class EventsEdit extends Component {
 		selectedTeams: [],
 	}
 
+	handleTeamRemove = (teamId) => {
+		let newTeams = this.state.selectedTeams.filter(
+			(team) => Number(team.id) !== Number(teamId)
+		)
+		this.setState({
+			selectedTeams: newTeams,
+		})
+	}
+
 	handleTeamInput = (teamInputEvent) => {
 		const selectedTeam = this.props.teams[teamInputEvent.target.value]
 		if (
@@ -73,6 +82,7 @@ class EventsEdit extends Component {
 						handleSubmit={this.handleSubmit}
 						handleChange={this.handleChange}
 						handleTeamInput={this.handleTeamInput}
+						handleTeamRemove={this.handleTeamRemove}
 						{...this.state}
 					/>
 				</div>

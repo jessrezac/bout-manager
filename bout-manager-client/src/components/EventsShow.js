@@ -6,6 +6,41 @@ import normalize from "json-api-normalizer"
 import TeamTable from "../containers/TeamTable"
 
 class EventsShow extends Component {
+	handleTeamRemove = (id) => {
+		// Create array of teams that contains only id
+		const event = this.props.events[this.props.match.params.eventId]
+		const eventTeams = event.attributes.teams
+		let updatedTeams = []
+
+		for (let i = 0; i < eventTeams.length; i++) {
+			if (eventTeams[i].id !== id) {
+				updatedTeams.push(eventTeams[i].id)
+			}
+		}
+
+		const configObj = {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "application/json",
+				Authorization: "Bearer " + this.props.accessToken,
+			},
+			body: JSON.stringify({
+				teams: updatedTeams,
+				event: {
+					id: event.id,
+				},
+			}),
+		}
+		fetch("http://localhost:3000/api/v1/events/" + event.id, configObj)
+			.then((resp) => resp.json())
+			.then((data) => {
+				let normalizedData = normalize(data)
+
+				this.props.setEntities(normalizedData)
+			})
+	}
+
 	deleteEvent = () => {
 		const configObj = {
 			method: "DELETE",
@@ -49,6 +84,7 @@ class EventsShow extends Component {
 					<TeamTable
 						eventTeams={event.attributes.teams}
 						eventId={event.id}
+						handleTeamRemove={this.handleTeamRemove}
 					/>
 				</div>
 
