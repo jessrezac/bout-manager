@@ -24,16 +24,18 @@ class EventsEdit extends Component {
 
 	handleTeamInput = (teamInputEvent) => {
 		const selectedTeam = this.props.teams[teamInputEvent.target.value]
-		if (
-			this.state.selectedTeams.filter(
-				(team) =>
-					Number(team.id) === Number(teamInputEvent.target.value)
-			).length === 0
-		) {
-			const newTeams = this.state.selectedTeams.concat(selectedTeam)
-			this.setState({
-				selectedTeams: newTeams,
-			})
+		if (!!selectedTeam) {
+			if (
+				this.state.selectedTeams.filter(
+					(team) =>
+						Number(team.id) === Number(teamInputEvent.target.value)
+				).length === 0
+			) {
+				const newTeams = this.state.selectedTeams.concat(selectedTeam)
+				this.setState({
+					selectedTeams: newTeams,
+				})
+			}
 		}
 	}
 
