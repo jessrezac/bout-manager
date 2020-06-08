@@ -1,5 +1,7 @@
+import merge from "lodash/merge"
+
 const entitiesReducer = (
-	state = { event: {}, team: {}, season: {} },
+	state = { event: {}, team: {}, season: {}, organization: {} },
 	action
 ) => {
 	switch (action.type) {
@@ -7,9 +9,10 @@ const entitiesReducer = (
 			return Object.assign({}, state, action.entities)
 
 		case "SET_TEAMS":
-			return Object.assign({}, state, {
-				entities: { team: action.team },
-			})
+			return merge({}, state, action.entities.team)
+
+		case "SET_ORGANIZATIONS":
+			return merge({}, state, action.entities.organization)
 
 		default:
 			return state

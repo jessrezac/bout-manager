@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_23_025953) do
+ActiveRecord::Schema.define(version: 2020_06_05_000306) do
 
   create_table "districts", force: :cascade do |t|
     t.string "name"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2020_04_23_025953) do
     t.integer "org_type", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "district_id"
   end
 
   create_table "people", force: :cascade do |t|

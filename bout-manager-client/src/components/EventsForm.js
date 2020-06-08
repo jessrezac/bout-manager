@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 import TeamTable from "../containers/TeamTable"
 import { fetchTeams } from "../actions/team.js"
+import { Link } from "react-router-dom"
 
 class EventsForm extends Component {
 	renderTeamOptions = () => {
@@ -12,6 +13,12 @@ class EventsForm extends Component {
 					{teamName}
 				</option>
 			)
+		})
+	}
+
+	showNewTeamForm = () => {
+		this.setState({
+			showNewTeamForm: true,
 		})
 	}
 
@@ -63,16 +70,17 @@ class EventsForm extends Component {
 						</div>
 					</div>
 				</div>
+				<p className="label">Teams</p>
+				<TeamTable
+					eventTeams={this.props.selectedTeams}
+					handleTeamRemove={this.props.handleTeamRemove}
+				/>
+
 				<div className="field">
 					<div className="control">
-						<p className="label">Teams</p>
-						<TeamTable
-							eventTeams={this.props.selectedTeams}
-							handleTeamRemove={this.props.handleTeamRemove}
-						/>
 						<label htmlFor="add-a-team" className="label">
 							Add A Team
-						</label>
+						</label>{" "}
 						<div className="select">
 							<select
 								onChange={this.props.handleTeamInput}
@@ -84,6 +92,10 @@ class EventsForm extends Component {
 								{this.renderTeamOptions()}
 							</select>
 						</div>
+						&nbsp;
+						<Link className="button is-link" to="/teams/new">
+							New Team
+						</Link>
 					</div>
 				</div>
 				<div className="field">
@@ -103,7 +115,6 @@ class EventsForm extends Component {
 const mapStateToProps = (state) => {
 	return {
 		accessToken: state.user.user.access_token,
-		seasonId: state.team.team.season_id,
 		teams: state.entities.team,
 	}
 }

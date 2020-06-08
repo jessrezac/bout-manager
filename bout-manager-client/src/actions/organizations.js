@@ -1,8 +1,7 @@
 import normalize from "json-api-normalizer"
 
-export function fetchTeams() {
+export function fetchOrganizations() {
 	return (dispatch, getState) => {
-		dispatch({ type: "START_ADDING_TEAMS_REQUEST" })
 		const configObj = {
 			method: "GET",
 			headers: {
@@ -12,13 +11,13 @@ export function fetchTeams() {
 			},
 		}
 
-		fetch(`http://localhost:3000/api/v1/teams`, configObj)
+		fetch(`http://localhost:3000/api/v1/organizations`, configObj)
 			.then((resp) => resp.json())
 			.then((data) => {
 				let normalizedData = normalize(data)
 				dispatch({
-					type: "SET_TEAMS",
-					entities: { team: normalizedData },
+					type: "SET_ORGANIZATIONS",
+					entities: { organization: normalizedData },
 				})
 			})
 	}

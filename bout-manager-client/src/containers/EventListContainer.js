@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import EventRow from "../components/EventRow"
+import normalize from "json-api-normalizer"
+import { setEntities } from "../actions/entities.js"
 
 class EventListContainer extends Component {
 	renderEvents = () => {
@@ -35,6 +37,24 @@ class EventListContainer extends Component {
 			</section>
 		)
 	}
+
+	componentDidMount() {
+		const configObj = {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "application/json",
+				Authorization: "Bearer " + this.props.accessToken,
+			},
+		}
+		fetch(`http://localhost:3000/api/v1/events`, configObj)
+			.then((resp) => resp.json())
+			.then((data) => {
+				let normalizedData = normalize(data)
+				console.log(normalizedData)
+				this.props.setEntities(normalizedData)
+			})
+	}
 }
 
 const mapStateToProps = (state) => {
@@ -45,4 +65,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps)(EventListContainer)
+export default connect(mapStateToProps, { setEntities })(EventListContainer)

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
         resources :people
         resources :events
         resources :teams
+        resources :organizations, only: [:index, :create]
         devise_for :users, controllers: {
           registrations: 'api/v1/users/registrations'
         }, skip: [:sessions, :password]
