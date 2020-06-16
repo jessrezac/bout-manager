@@ -1,6 +1,7 @@
 class District < ApplicationRecord
     has_many :round_settings
     has_many :seasons
+    has_many :organizations
 
     def active_teams
         sorted_seasons = self.seasons.sort { |left, right| right.year <=> left.year }

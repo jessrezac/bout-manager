@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import EventRow from "../components/EventRow"
+import { fetchEvents } from "../actions/entities.js"
 
 class EventListContainer extends Component {
 	renderEvents = () => {
@@ -35,6 +36,10 @@ class EventListContainer extends Component {
 			</section>
 		)
 	}
+
+	componentDidMount() {
+		this.props.fetchEvents()
+	}
 }
 
 const mapStateToProps = (state) => {
@@ -45,4 +50,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps)(EventListContainer)
+export default connect(mapStateToProps, { fetchEvents })(EventListContainer)

@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import { connect } from 'react-redux'
-import ProfileIncompleteNotification from './ProfileIncompleteNotification'
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import ProfileIncompleteNotification from "./ProfileIncompleteNotification"
 import TeamUnassignedNotification from "./TeamUnassignedNotification"
-import NewEventLevel from './NewEventLevel'
-import EventListContainer from '../containers/EventListContainer'
+import NewEventLevel from "./NewEventLevel"
+import EventListContainer from "../containers/EventListContainer"
 
 class Dashboard extends Component {
-    render() {
-        return (
+	render() {
+		return (
 			<section className="section">
 				{!!this.props.teamName ? null : <TeamUnassignedNotification />}
 
@@ -16,20 +16,19 @@ class Dashboard extends Component {
 				)}
 
 				<NewEventLevel />
-				
-				<EventListContainer />
 
+				<EventListContainer />
 			</section>
 		)
-    }
+	}
 }
 
 const mapStateToProps = (state) => {
-    return {
+	return {
 		profileComplete: state.user.user.profile_complete,
 		teamName: state.team.teamName,
-		teamSeason: state.team.teamSeason
-	} 
+		teamSeason: state.team.teamSeason,
+	}
 }
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps)(Dashboard)

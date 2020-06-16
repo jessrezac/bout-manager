@@ -1,7 +1,20 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
+import { connect } from "react-redux"
+import { logout } from "../actions/user"
+import LoginButton from "./LoginButton"
+import LogoutButton from "./LogoutButton"
 
 class Navbar extends Component {
+	renderUserButton = () => {
+		console.log(this.props.isLoggedIn)
+		if (this.props.isLoggedIn) {
+			return <LogoutButton logout={this.props.logout} />
+		}
+
+		return <LoginButton showModal={this.props.showModal} />
+	}
+
 	render() {
 		return (
 			<nav
@@ -79,13 +92,7 @@ class Navbar extends Component {
 					<div className="navbar-end">
 						<div className="navbar-item">
 							<div className="buttons">
-								<button
-									className="button is-link"
-									onClick={() => {
-										this.props.showModal()
-									}}>
-									Register/Login
-								</button>
+								{this.renderUserButton()}
 							</div>
 						</div>
 					</div>
@@ -95,4 +102,10 @@ class Navbar extends Component {
 	}
 }
 
-export default Navbar
+const mapStateToProps = (state) => {
+	return {
+		isLoggedIn: state.user.isLoginSuccess,
+	}
+}
+
+export default connect(mapStateToProps, { logout })(Navbar)

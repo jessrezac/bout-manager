@@ -1,14 +1,11 @@
-import { createBrowserHistory } from 'history'
-import { applyMiddleware, compose, createStore } from 'redux'
-import { routerMiddleware } from 'connected-react-router'
-import boutManagerReducer from './reducers/boutManagerReducer'
-import thunk from 'redux-thunk'
-
-export const history = createBrowserHistory()
+import { applyMiddleware, compose, createStore } from "redux"
+import { routerMiddleware } from "connected-react-router"
+import { rootReducer, history } from "./reducers/boutManagerReducer"
+import thunk from "redux-thunk"
 
 export default function configureStore(preloadedState) {
-    const store = createStore(
-		boutManagerReducer(history), // root reducer with router state
+	const store = createStore(
+		rootReducer, // root reducer with router state
 		preloadedState,
 		compose(
 			applyMiddleware(
@@ -21,5 +18,5 @@ export default function configureStore(preloadedState) {
 		)
 	)
 
-    return store
+	return store
 }

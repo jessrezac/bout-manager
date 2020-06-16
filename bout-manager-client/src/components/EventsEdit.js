@@ -5,14 +5,21 @@ import EventsForm from "./EventsForm"
 
 import normalize from "json-api-normalizer"
 
-import "react-tagsinput/react-tagsinput.css"
-
-class EventsNew extends Component {
+class EventsEdit extends Component {
 	state = {
 		name: "",
 		location: "",
 		datetime: null,
 		selectedTeams: [],
+	}
+
+	handleTeamRemove = (teamId) => {
+		let newTeams = this.state.selectedTeams.filter(
+			(team) => Number(team.id) !== Number(teamId)
+		)
+		this.setState({
+			selectedTeams: newTeams,
+		})
 	}
 
 	handleTeamInput = (teamInputEvent) => {
@@ -32,15 +39,6 @@ class EventsNew extends Component {
 		}
 	}
 
-	handleTeamRemove = (teamId) => {
-		let newTeams = this.state.selectedTeams.filter(
-			(team) => Number(team.id) !== Number(teamId)
-		)
-		this.setState({
-			selectedTeams: newTeams,
-		})
-	}
-
 	handleChange = (e) => {
 		this.setState({
 			[e.target.name]: e.target.value,
@@ -49,8 +47,11 @@ class EventsNew extends Component {
 
 	handleSubmit = (e) => {
 		e.preventDefault()
+		let teams = Object.keys(this.state.selectedTeams).map((team) => {
+			return this.state.selectedTeams[team].id
+		})
 		const configObj = {
-			method: "POST",
+			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
 				Accept: "application/json",
@@ -60,15 +61,16 @@ class EventsNew extends Component {
 				name: this.state.name,
 				location: this.state.location,
 				datetime: this.state.datetime,
-				teams: this.state.selectedTeams,
-				season_id: this.props.seasonId,
+				teams: teams,
 			}),
 		}
-		fetch(`http://localhost:3000/api/v1/events`, configObj)
+		fetch(
+			`http://localhost:3000/api/v1/events/${this.props.match.params.eventId}`,
+			configObj
+		)
 			.then((resp) => resp.json())
 			.then((data) => {
 				let normalizedData = normalize(data)
-
 				this.props.setEntities(normalizedData)
 			})
 	}
@@ -77,7 +79,7 @@ class EventsNew extends Component {
 		return (
 			<section className="section">
 				<div className="container">
-					<h1 className="title is-1">Add An Event</h1>
+					<h1 className="title is-1">Update Event</h1>
 					<EventsForm
 						handleSubmit={this.handleSubmit}
 						handleChange={this.handleChange}
@@ -89,14 +91,24 @@ class EventsNew extends Component {
 			</section>
 		)
 	}
+
+	componentDidMount() {
+		const event = this.props.events[this.props.match.params.eventId]
+		this.setState({
+			name: event.attributes.name,
+			location: event.attributes.location,
+			datetime: event.attributes.datetime,
+			selectedTeams: event.attributes.teams,
+		})
+	}
 }
 
 const mapStateToProps = (state) => {
 	return {
 		accessToken: state.user.user.access_token,
-		seasonId: state.team.team.season_id,
+		events: state.entities.event,
 		teams: state.entities.team,
 	}
 }
 
-export default connect(mapStateToProps, { setEntities })(EventsNew)
+export default connect(mapStateToProps, { setEntities })(EventsEdit)

@@ -8,11 +8,13 @@ import Dashboard from "./components/Dashboard"
 import EventsNew from "./components/EventsNew"
 import EventsPage from "./containers/EventsPage"
 import EventListContainer from "./containers/EventListContainer"
+import TeamsNew from "./components/TeamsNew"
 
 import Settings from "./components/Settings"
 import Header from "./components/Header"
 import { Provider } from "react-redux"
-import configureStore, { history } from "./configureStore"
+import configureStore from "./configureStore"
+import { history } from "./reducers/boutManagerReducer"
 import { ConnectedRouter } from "connected-react-router"
 import { Route, Switch } from "react-router-dom"
 import { loadState, saveState } from "./utils/localStorage"
@@ -45,6 +47,9 @@ ReactDOM.render(
 					path="/events"
 					render={(routerProps) => <EventsPage {...routerProps} />}
 				/>
+				<Route path="/teams/new">
+					<TeamsNew />
+				</Route>
 				<Route path="/settings">
 					<Settings />
 				</Route>
