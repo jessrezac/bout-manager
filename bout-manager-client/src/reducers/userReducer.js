@@ -1,5 +1,3 @@
-import boutManagerReducer from "./boutManagerReducer"
-
 export default function userReducer(
 	state = {
 		isLoginSuccess: false,
@@ -30,13 +28,6 @@ export default function userReducer(
 			return Object.assign({}, state, {
 				registrationErrors: action.registrationErrors,
 			})
-
-		// case "LOGOUT":
-		// 	localStorage.removeItem("state")
-		// 	const { history } = state
-		// 	state = { history }
-
-		// 	return boutManagerReducer(state)
 
 		default:
 			return state
