@@ -1,3 +1,5 @@
+import { history } from "../reducers/boutManagerReducer"
+
 export const setLoginPending = () => {
 	return { type: "SET_LOGIN_PENDING" }
 }
@@ -18,5 +20,6 @@ export const setRegistrationErrors = (registrationErrors) => {
 }
 
 export const logout = () => {
+	history.push("/")
 	return { type: "LOGOUT" }
 }
