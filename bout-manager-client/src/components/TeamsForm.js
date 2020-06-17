@@ -1,21 +1,18 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-
 import { fetchOrganizations } from "../actions/organizations"
 
 class TeamsForm extends Component {
-	state = {
-		orgName: "",
-	}
-	handleSubmit = () => {
-		// TODO: Handle submit
+	handleChange = (event) => {
+		this.setState({
+			[event.target.name]: event.target.value,
+		})
 	}
 
 	renderOrgDatalist = () => {
-		console.log("hi")
 		return Object.keys(this.props.organizations).map((orgId) => {
 			return (
-				<option value={orgId}>
+				<option value={orgId} key={orgId}>
 					{this.props.organizations[orgId].attributes.name}
 				</option>
 			)
@@ -25,42 +22,18 @@ class TeamsForm extends Component {
 	render() {
 		return (
 			<form onSubmit={this.handleSubmit}>
-				<div className="field is-grouped">
+				<h2 className="subtitle">Add from Existing Organization</h2>
+				<div className="field">
 					<div className="control">
 						<label htmlFor="orgId" className="label">
-							Select an Organization
-						</label>
-						<div className="select">
-							<select name="orgId" id="orgId">
-								{this.renderOrgDatalist}
-							</select>
-						</div>
-						<input
-							type="text"
-							className="input is-primary"
-							placeholder="Organization Name"
-							name="orgName"
-							id="orgName"
-							onChange={this.handleChange}
-							value={this.props.orgName}
-							datalist="organizations"
-						/>
-						<datalist name="organizations">
-							{this.renderOrgDatalist}
-						</datalist>
-					</div>
-					<div className="control">
-						<label htmlFor="orgType" className="label">
-							Organization Type
+							Select Organization
 						</label>
 						<div className="select">
 							<select
-								className="is-primary"
-								name="orgType"
-								onChange={this.props.handleChange}
-								value={this.props.orgType}>
-								<option value="school">School</option>
-								<option value="community">Community</option>
+								name="orgId"
+								id="orgId"
+								onChange={this.handleChange}>
+								{this.renderOrgDatalist()}
 							</select>
 						</div>
 					</div>
