@@ -7,7 +7,6 @@ import LogoutButton from "./LogoutButton"
 
 class Navbar extends Component {
 	renderUserButton = () => {
-		console.log(this.props.isLoggedIn)
 		if (this.props.isLoggedIn) {
 			return <LogoutButton logout={this.props.logout} />
 		}
