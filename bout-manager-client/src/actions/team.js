@@ -43,7 +43,10 @@ export function createTeam(newTeam) {
 			.then((resp) => resp.json())
 			.then((data) => {
 				let normalizedData = normalize(data)
-				console.log(normalizedData)
+				dispatch({
+					type: "ADD_TEAM",
+					team: normalizedData.team,
+				})
 			})
 	}
 }

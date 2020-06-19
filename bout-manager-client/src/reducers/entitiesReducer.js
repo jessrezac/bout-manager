@@ -1,18 +1,3 @@
-function updateObject(oldObject, newValues) {
-	return Object.assign({}, oldObject, newValues)
-}
-
-function updateItemInObject(object, itemId, updateItemCallback) {
-	const updateItems = Object.keys(object).map((keyId) => {
-		if (keyId != itemId) {
-			return object[keyId]
-		}
-
-		const updatedItem = updateItemCallback(object[keyId])
-		return updatedItem
-	})
-}
-
 const entitiesReducer = (
 	state = { event: {}, team: {}, season: {}, organization: {} },
 	action
@@ -26,6 +11,13 @@ const entitiesReducer = (
 
 		case "SET_ORGANIZATIONS":
 			return Object.assign({}, state, action.entities.organization)
+
+		case "ADD_TEAM":
+			return {
+				...state,
+				// Update our Entities object with a new "team" object
+				team: Object.assign({}, state.team, action.team),
+			}
 
 		default:
 			return state
