@@ -1,10 +1,18 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
+import SeasonOptionList from "../containers/SeasonOptionList"
+import { createOrganizationWithTeam } from "../actions/organizations"
 
 class OrganizationsForm extends Component {
 	state = {
 		orgName: "",
 		orgType: "school",
+		seasonId: "",
+	}
+
+	handleSubmit = (event) => {
+		event.preventDefault()
+		this.props.createOrganizationWithTeam(this.state)
 	}
 
 	handleChange = (event) => {
@@ -15,7 +23,7 @@ class OrganizationsForm extends Component {
 
 	render() {
 		return (
-			<form onSubmit={this.props.handleSubmit}>
+			<form onSubmit={this.handleSubmit}>
 				<h2 className="subtitle">Add from New Organization</h2>
 
 				<div className="field is-grouped">
@@ -48,6 +56,15 @@ class OrganizationsForm extends Component {
 							</select>
 						</div>
 					</div>
+					<div className="control">
+						<label htmlFor="seasonId" className="label">
+							Select Season
+						</label>
+						<SeasonOptionList
+							seasons={this.props.seasons}
+							handleChange={this.handleChange}
+						/>
+					</div>
 				</div>
 				<div className="field">
 					<div className="control">
@@ -65,4 +82,6 @@ const mapStateToProps = (state) => {
 		organizations: state.entities.organization,
 	}
 }
-export default connect(mapStateToProps)(OrganizationsForm)
+export default connect(mapStateToProps, { createOrganizationWithTeam })(
+	OrganizationsForm
+)

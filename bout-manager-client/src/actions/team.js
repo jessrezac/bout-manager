@@ -23,3 +23,27 @@ export function fetchTeams() {
 			})
 	}
 }
+
+export function createTeam(newTeam) {
+	return (dispatch, getState) => {
+		const configObj = {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "application/json",
+				Authorization: "Bearer " + getState().user.user.access_token,
+			},
+			body: JSON.stringify({
+				season_id: newTeam.seasonId,
+				organization_id: newTeam.orgId,
+			}),
+		}
+
+		fetch(`http://localhost:3000/api/v1/teams`, configObj)
+			.then((resp) => resp.json())
+			.then((data) => {
+				let normalizedData = normalize(data)
+				console.log(normalizedData)
+			})
+	}
+}
