@@ -19,6 +19,17 @@ const entitiesReducer = (
 				team: Object.assign({}, state.team, action.team),
 			}
 
+		case "ADD_ORGANIZATION":
+			return {
+				...state,
+				// Update our entities object with a new "organization" object
+				organization: Object.assign(
+					{},
+					state.organization,
+					action.organization
+				),
+			}
+
 		default:
 			return state
 	}
