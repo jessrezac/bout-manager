@@ -34,8 +34,8 @@ export function createTeam(newTeam) {
 				Authorization: "Bearer " + getState().user.user.access_token,
 			},
 			body: JSON.stringify({
-				season_id: newTeam.seasonId,
-				organization_id: newTeam.orgId,
+				season_id: newTeam.selectedSeasonId,
+				organization_id: newTeam.selectedOrgId,
 			}),
 		}
 

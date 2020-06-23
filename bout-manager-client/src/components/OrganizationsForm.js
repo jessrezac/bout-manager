@@ -6,13 +6,18 @@ import { createOrganizationWithTeam } from "../actions/organizations"
 class OrganizationsForm extends Component {
 	state = {
 		orgName: "",
-		orgType: "school",
-		seasonId: "",
+		orgType: "",
+		selectedSeasonId: "",
 	}
 
 	handleSubmit = (event) => {
 		event.preventDefault()
 		this.props.createOrganizationWithTeam(this.state)
+		this.setState({
+			orgName: "",
+			orgType: "",
+			selectedSeasonId: "",
+		})
 	}
 
 	handleChange = (event) => {
@@ -27,7 +32,7 @@ class OrganizationsForm extends Component {
 				<h2 className="subtitle">Add from New Organization</h2>
 
 				<div className="field is-grouped">
-					<div className="control">
+					<div className="control is-expanded">
 						<label htmlFor="orgName" className="label">
 							Organization Name
 						</label>
@@ -51,18 +56,22 @@ class OrganizationsForm extends Component {
 								name="orgType"
 								onChange={this.handleChange}
 								value={this.state.orgType}>
+								<option value="" disabled>
+									Select
+								</option>
 								<option value="school">School</option>
 								<option value="community">Community</option>
 							</select>
 						</div>
 					</div>
 					<div className="control">
-						<label htmlFor="seasonId" className="label">
+						<label htmlFor="selectedSeasonId" className="label">
 							Select Season
 						</label>
 						<SeasonOptionList
 							seasons={this.props.seasons}
 							handleChange={this.handleChange}
+							selectedSeasonId={this.state.selectedSeasonId}
 						/>
 					</div>
 				</div>

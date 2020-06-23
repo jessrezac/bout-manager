@@ -18,9 +18,13 @@ class SeasonOptionList extends Component {
 		return (
 			<div className="select">
 				<select
-					name="seasonId"
-					id="seasonId"
-					onChange={this.props.handleChange}>
+					name="selectedSeasonId"
+					id="selectedSeasonId"
+					onChange={this.props.handleChange}
+					value={this.props.selectedSeasonId}>
+					<option value="" disabled>
+						Select
+					</option>
 					{this.renderSeasonList()}
 				</select>
 			</div>

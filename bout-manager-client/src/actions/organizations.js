@@ -35,7 +35,9 @@ export function createOrganizationWithTeam(newOrganization) {
 			body: JSON.stringify({
 				name: newOrganization.orgName,
 				org_type: newOrganization.orgType,
-				teams_attributes: [{ season_id: newOrganization.seasonId }],
+				teams_attributes: [
+					{ season_id: newOrganization.selectedSeasonId },
+				],
 			}),
 		}
 
