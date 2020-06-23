@@ -1,3 +1,7 @@
+function updateObject(oldObject, newValues) {
+	return Object.assign({}, oldObject, newValues)
+}
+
 const entitiesReducer = (
 	state = { event: {}, team: {}, season: {}, organization: {} },
 	action
@@ -16,15 +20,14 @@ const entitiesReducer = (
 			return {
 				...state,
 				// Update our Entities object with a new "team" object
-				team: Object.assign({}, state.team, action.team),
+				team: updateObject(state.team, action.team),
 			}
 
 		case "ADD_ORGANIZATION":
 			return {
 				...state,
 				// Update our entities object with a new "organization" object
-				organization: Object.assign(
-					{},
+				organization: updateObject(
 					state.organization,
 					action.organization
 				),

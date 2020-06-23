@@ -52,6 +52,5 @@ export function createOrganizationWithTeam(newOrganization) {
 					organization: normalizedData.organization,
 				})
 			})
-			.catch((err) => console.log(err))
 	}
 }
