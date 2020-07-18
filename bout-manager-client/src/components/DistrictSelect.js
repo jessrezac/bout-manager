@@ -26,7 +26,7 @@ class DistrictSelect extends Component {
 			headers: {
 				"Content-Type": "application/json",
 				Accept: "application/json",
-				Authorization: "Bearer " + this.props.access_token,
+				Authorization: "Bearer " + this.props.accessToken,
 			},
 		}
 		fetch(
@@ -68,7 +68,7 @@ class DistrictSelect extends Component {
 			headers: {
 				"Content-Type": "application/json",
 				Accept: "application/json",
-				Authorization: "Bearer " + this.props.access_token,
+				Authorization: "Bearer " + this.props.accessToken,
 			},
 		}
 		fetch(`http://localhost:3000/api/v1/districts`, configObj)
@@ -83,7 +83,7 @@ class DistrictSelect extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		access_token: state.loggedInUser.user.accessToken,
+		accessToken: state.loggedInUser.user.accessToken,
 		id: state.loggedInUser.user.person_id,
 	}
 }
