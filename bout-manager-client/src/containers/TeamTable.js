@@ -58,10 +58,4 @@ class TeamTable extends Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		accessToken: state.loggedInUser.user.accessToken,
-	}
-}
-
 export default TeamTable
