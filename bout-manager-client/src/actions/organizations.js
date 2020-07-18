@@ -7,7 +7,7 @@ export function fetchOrganizations() {
 			headers: {
 				"Content-Type": "application/json",
 				Accept: "application/json",
-				Authorization: "Bearer " + getState().user.user.access_token,
+				Authorization: "Bearer " + getState().loggedInUser.accessToken,
 			},
 		}
 
@@ -30,7 +30,7 @@ export function createOrganizationWithTeam(newOrganization) {
 			headers: {
 				"Content-Type": "application/json",
 				Accept: "application/json",
-				Authorization: "Bearer " + getState().user.user.access_token,
+				Authorization: "Bearer " + getState().loggedInuser.accessToken,
 			},
 			body: JSON.stringify({
 				name: newOrganization.orgName,

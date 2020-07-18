@@ -8,7 +8,7 @@ export function fetchTeams() {
 			headers: {
 				"Content-Type": "application/json",
 				Accept: "application/json",
-				Authorization: "Bearer " + getState().user.user.access_token,
+				Authorization: "Bearer " + getState().loggedInUser.accessToken,
 			},
 		}
 
@@ -31,7 +31,7 @@ export function createTeam(newTeam) {
 			headers: {
 				"Content-Type": "application/json",
 				Accept: "application/json",
-				Authorization: "Bearer " + getState().user.user.access_token,
+				Authorization: "Bearer " + getState().loggedInUser.accessToken,
 			},
 			body: JSON.stringify({
 				season_id: newTeam.selectedSeasonId,

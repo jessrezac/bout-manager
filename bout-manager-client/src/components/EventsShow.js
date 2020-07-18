@@ -123,7 +123,7 @@ const mapStateToProps = (state) => {
 	return {
 		events: state.entities.event,
 		teams: state.entities.team,
-		accessToken: state.user.user.access_token,
+		accessToken: state.loggedInUser.user.accessToken,
 	}
 }
 

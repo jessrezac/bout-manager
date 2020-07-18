@@ -46,7 +46,7 @@ class TeamsNew extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		accessToken: state.user.user.access_token,
+		accessToken: state.loggedInUser.user.accessToken,
 	}
 }
 export default connect(mapStateToProps)(TeamsNew)

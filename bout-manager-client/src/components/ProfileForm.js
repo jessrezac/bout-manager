@@ -1,61 +1,57 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from "react"
+import { connect } from "react-redux"
 
 class ProfileForm extends Component {
-    state = {
-        firstName: "",
-        lastName: "",
-        phone: "",
-        email: "",
-        snapchat: "",
-        instagram: ""
-    }
-
-    handleChange = e => {
-        this.setState(
-            {[e.target.name]: e.target.value}
-        )
+	state = {
+		firstName: "",
+		lastName: "",
+		phone: "",
+		email: "",
+		snapchat: "",
+		instagram: "",
 	}
-	
-	handleSubmit = e => {
+
+	handleChange = (e) => {
+		this.setState({ [e.target.name]: e.target.value })
+	}
+
+	handleSubmit = (e) => {
 		e.preventDefault()
 		const configObj = {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
 				Accept: "application/json",
-				"Authorization": "Bearer " + this.props.accessToken
+				Authorization: "Bearer " + this.props.accessToken,
 			},
-			body: JSON.stringify({ api_v1_person: {
-				first_name: this.state.firstName,
-				last_name: this.state.lastName,
-				email: this.state.email,
-				phone: this.state.phone,
-				snapchat: this.state.snapchat,
-				instagram: this.state.instagram
-			} })
+			body: JSON.stringify({
+				api_v1_person: {
+					first_name: this.state.firstName,
+					last_name: this.state.lastName,
+					email: this.state.email,
+					phone: this.state.phone,
+					snapchat: this.state.snapchat,
+					instagram: this.state.instagram,
+				},
+			}),
 		}
-		fetch(
-			`http://localhost:3000/api/v1/people/${this.props.id}`,
-			configObj
-		)
-			.then(resp => resp.json())
-			.then(data => {
+		fetch(`http://localhost:3000/api/v1/people/${this.props.id}`, configObj)
+			.then((resp) => resp.json())
+			.then((data) => {
 				this.setState({
 					firstName: data.first_name || "",
 					lastName: data.last_name || "",
 					phone: data.phone || "",
 					email: data.email || "",
 					snapchat: data.snapchat || "",
-					instagram: data.instagram || ""
+					instagram: data.instagram || "",
 				})
 			})
 	}
 
-    render() {
-        return (
+	render() {
+		return (
 			<section className="section">
-
 				<div className="container">
 					<h1 className="title is-1">Complete Your Profile</h1>
 					<form onSubmit={this.handleSubmit}>
@@ -141,38 +137,35 @@ class ProfileForm extends Component {
 			</section>
 		)
 	}
-	
+
 	componentDidMount() {
 		const configObj = {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
 				Accept: "application/json",
-				Authorization: "Bearer " + this.props.accessToken
-			}
+				Authorization: "Bearer " + this.props.accessToken,
+			},
 		}
-		fetch(
-			`http://localhost:3000/api/v1/people/${this.props.id}`,
-			configObj
-		)
-		.then(resp => resp.json())
-		.then(data => {
-			this.setState({
-				firstName: data.first_name || "",
-				lastName: data.last_name || "",
-				phone: data.phone || "",
-				email: data.email || "",
-				snapchat: data.snapchat || "",
-				instagram: data.instagram || ""
+		fetch(`http://localhost:3000/api/v1/people/${this.props.id}`, configObj)
+			.then((resp) => resp.json())
+			.then((data) => {
+				this.setState({
+					firstName: data.first_name || "",
+					lastName: data.last_name || "",
+					phone: data.phone || "",
+					email: data.email || "",
+					snapchat: data.snapchat || "",
+					instagram: data.instagram || "",
+				})
 			})
-		})
 	}
 }
 
-const mapStateToProps = state => {
-    return {
-		accessToken: state.user.user.access_token,
-		id: state.user.user.person_id
+const mapStateToProps = (state) => {
+	return {
+		accessToken: state.loggedInUser.user.accessToken,
+		id: state.loggedInUser.user.person_id,
 	}
 }
 

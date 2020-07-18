@@ -71,8 +71,8 @@ class TeamPeopleForm extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		accessToken: state.user.user.access_token,
-		id: state.user.user.person_id,
+		accessToken: state.loggedInUser.user.accessToken,
+		id: state.loggedInUser.user.person_id,
 	}
 }
 

@@ -60,7 +60,7 @@ class TeamTable extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		accessToken: state.user.user.access_token,
+		accessToken: state.loggedInUser.user.accessToken,
 	}
 }
 

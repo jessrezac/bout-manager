@@ -114,7 +114,7 @@ class EventsForm extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		accessToken: state.user.user.access_token,
+		accessToken: state.loggedInUser.user.accessToken,
 		teams: state.entities.team,
 	}
 }

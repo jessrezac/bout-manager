@@ -87,7 +87,7 @@ class OrganizationsForm extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		accessToken: state.user.user.access_token,
+		accessToken: state.loggedInUser.user.accessToken,
 		organizations: state.entities.organization,
 	}
 }

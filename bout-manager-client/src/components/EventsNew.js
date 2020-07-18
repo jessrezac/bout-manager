@@ -93,7 +93,7 @@ class EventsNew extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		accessToken: state.user.user.access_token,
+		accessToken: state.loggedInUser.user.accessToken,
 		seasonId: state.team.team.season_id,
 		teams: state.entities.team,
 	}

@@ -103,7 +103,7 @@ class Navbar extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		isLoggedIn: state.user.isLoginSuccess,
+		isLoggedIn: state.loggedInUser.isLoginSuccess,
 	}
 }
 

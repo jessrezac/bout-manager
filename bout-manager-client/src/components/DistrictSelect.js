@@ -83,8 +83,8 @@ class DistrictSelect extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		access_token: state.user.user.access_token,
-		id: state.user.user.person_id,
+		access_token: state.loggedInUser.user.accessToken,
+		id: state.loggedInUser.user.person_id,
 	}
 }
 

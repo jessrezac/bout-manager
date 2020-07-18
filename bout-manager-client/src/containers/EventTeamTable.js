@@ -63,7 +63,7 @@ class EventTeamTable extends Component {
 const mapStateToProps = (state) => {
 	return {
 		teams: state.entities.team,
-		accessToken: state.user.user.access_token,
+		accessToken: state.loggedInUser.user.accessToken,
 	}
 }
 
