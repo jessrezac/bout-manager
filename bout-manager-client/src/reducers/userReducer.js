@@ -2,17 +2,24 @@ export default function userReducer(
 	state = {
 		isLoginSuccess: false,
 		isLoginPending: false,
+		profileComplete: false,
+
+		// doorkeeper details
 		accessToken: "",
 		refreshToken: "",
 		tokenType: "",
 		expiresIn: null,
+
 		//eventually move these to an errors reducer in state
 		loginError: "",
 		registrationErrors: {},
+
 		// attributes for the user
 		user: {},
+
 		// attributes for the person
 		person: {},
+
 		// attributes for the user's person's team
 		team: {},
 	},
@@ -29,6 +36,7 @@ export default function userReducer(
 			const parsedTeam = JSON.parse(action.user.team)
 			return Object.assign({}, state, {
 				isLoginSuccess: true,
+				profileComplete: action.user.profile_complete,
 				accessToken: action.user.access_token,
 				refreshToken: action.user.refresh_token,
 				tokenType: action.user.token_type,

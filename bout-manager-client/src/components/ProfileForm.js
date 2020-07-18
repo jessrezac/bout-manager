@@ -164,8 +164,8 @@ class ProfileForm extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		accessToken: state.loggedInUser.user.accessToken,
-		id: state.loggedInUser.user.person_id,
+		accessToken: state.loggedInUser.accessToken,
+		id: state.loggedInUser.person.id,
 	}
 }
 

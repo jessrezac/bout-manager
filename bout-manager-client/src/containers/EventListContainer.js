@@ -45,7 +45,7 @@ class EventListContainer extends Component {
 const mapStateToProps = (state) => {
 	return {
 		seasonId: state.team.team.season_id,
-		accessToken: state.loggedInUser.user.accessToken,
+		accessToken: state.loggedInUser.accessToken,
 		events: state.entities.event,
 	}
 }

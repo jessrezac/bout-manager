@@ -60,10 +60,10 @@ class EventsPage extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		profileComplete: state.loggedInUser.profile_complete,
+		profileComplete: state.loggedInUser.profileComplete,
 		teamId: state.loggedInUser.team.id,
 		teamSeasonId: state.loggedInUser.team.season_id,
-		accessToken: state.loggedInUser.user.accessToken,
+		accessToken: state.loggedInUser.accessToken,
 	}
 }
 
