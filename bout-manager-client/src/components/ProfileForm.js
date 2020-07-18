@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
+import { setUserPerson } from "../actions/user"
 
 class ProfileForm extends Component {
 	state = {
@@ -46,6 +47,8 @@ class ProfileForm extends Component {
 					snapchat: data.snapchat || "",
 					instagram: data.instagram || "",
 				})
+
+				this.props.setUserPerson(data)
 			})
 	}
 
@@ -169,4 +172,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps)(ProfileForm)
+export default connect(mapStateToProps, { setUserPerson })(ProfileForm)

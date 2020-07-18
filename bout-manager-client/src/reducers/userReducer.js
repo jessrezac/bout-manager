@@ -46,6 +46,16 @@ export default function userReducer(
 				team: parsedTeam,
 			})
 
+		case "SET_USER_TEAM":
+			return Object.assign({}, state, {
+				team: action.team,
+			})
+
+		case "SET_USER_PERSON":
+			return Object.assign({}, state, {
+				person: action.person,
+			})
+
 		case "SET_LOGIN_ERROR":
 			return Object.assign({}, state, {
 				isLoginPending: false,
