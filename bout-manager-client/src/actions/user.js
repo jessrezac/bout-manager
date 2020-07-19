@@ -12,8 +12,8 @@ export const setLoginError = (loginError) => {
 	return { type: "SET_LOGIN_ERROR", loginError: loginError }
 }
 
-export const setUserTeam = (team) => {
-	return { type: "SET_USER_TEAM", team: team }
+export const setUserTeamPerson = (teamPerson) => {
+	return { type: "SET_USER_TEAM", teamPerson: teamPerson }
 }
 
 export const setUserPerson = (person) => {

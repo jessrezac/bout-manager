@@ -3,8 +3,4 @@ class TeamPerson < ApplicationRecord
     belongs_to :person
 
     enum role: [:sponsor, :poet, :judge, :admin]
-
-  
-
-
 end

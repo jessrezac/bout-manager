@@ -21,7 +21,7 @@ export default function userReducer(
 		person: {},
 
 		// attributes for the user's person's team
-		team: {},
+		teamPerson: {},
 	},
 	action
 ) {
@@ -33,7 +33,7 @@ export default function userReducer(
 			console.log(action.user)
 			const parsedUser = JSON.parse(action.user.user)
 			const parsedPerson = JSON.parse(action.user.person)
-			const parsedTeam = JSON.parse(action.user.team)
+			const parsedTeamPerson = JSON.parse(action.user.team_person)
 			return Object.assign({}, state, {
 				isLoginSuccess: true,
 				profileComplete: action.user.profile_complete,
@@ -43,12 +43,12 @@ export default function userReducer(
 				expiresIn: action.user.expires_in,
 				user: parsedUser,
 				person: parsedPerson,
-				team: parsedTeam,
+				teamPerson: parsedTeamPerson,
 			})
 
-		case "SET_USER_TEAM":
+		case "SET_USER_TEAM_PERSON":
 			return Object.assign({}, state, {
-				team: action.team,
+				teamPerson: action.teamPerson,
 			})
 
 		case "SET_USER_PERSON":

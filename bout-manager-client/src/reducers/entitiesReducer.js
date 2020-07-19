@@ -8,7 +8,22 @@ const entitiesReducer = (
 ) => {
 	switch (action.type) {
 		case "SET_ENTITIES":
-			return Object.assign({}, state, action.entities)
+			let updatedEvents = updateObject(state.event, action.entities.event)
+			let updatedTeams = updateObject(state.team, action.entities.team)
+			let updatedSeasons = updateObject(
+				state.season,
+				action.entities.season
+			)
+			let updatedOrganizations = updateObject(
+				state.organization,
+				action.entities.organization
+			)
+			return Object.assign({}, state, {
+				event: updatedEvents,
+				team: updatedTeams,
+				season: updatedSeasons,
+				organization: updatedOrganizations,
+			})
 
 		case "SET_TEAMS":
 			return Object.assign({}, state, action.entities.team)
