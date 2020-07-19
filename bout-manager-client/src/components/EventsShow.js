@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import { setEntities } from "../actions/entities.js"
 import normalize from "json-api-normalizer"
-import TeamTable from "../containers/TeamTable"
+import EventTeamTable from "../containers/EventTeamTable"
 
 class EventsShow extends Component {
 	handleTeamRemove = (id) => {
@@ -81,7 +81,7 @@ class EventsShow extends Component {
 
 				<div className="content">
 					<h2 className="title is-3">Teams</h2>
-					<TeamTable
+					<EventTeamTable
 						eventTeams={event.attributes.teams}
 						eventId={event.id}
 						handleTeamRemove={this.handleTeamRemove}
@@ -123,7 +123,7 @@ const mapStateToProps = (state) => {
 	return {
 		events: state.entities.event,
 		teams: state.entities.team,
-		accessToken: state.user.user.access_token,
+		accessToken: state.loggedInUser.accessToken,
 	}
 }
 

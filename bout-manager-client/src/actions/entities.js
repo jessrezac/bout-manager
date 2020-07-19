@@ -10,8 +10,8 @@ export const setEntities = (entities) => {
 export const fetchEvents = () => {
 	return (dispatch, getState) => {
 		dispatch({ type: "START_ADDING_TEAMS_REQUEST" })
-		const user = getState().user.user
-		let userAuthorizationTokens = user.token_type + " " + user.access_token
+		const user = getState().loggedInUser
+		let userAuthorizationTokens = user.tokenType + " " + user.accessToken
 		const configObj = {
 			method: "GET",
 			headers: {

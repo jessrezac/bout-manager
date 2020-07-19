@@ -8,7 +8,7 @@ export function fetchTeams() {
 			headers: {
 				"Content-Type": "application/json",
 				Accept: "application/json",
-				Authorization: "Bearer " + getState().user.user.access_token,
+				Authorization: "Bearer " + getState().loggedInUser.accessToken,
 			},
 		}
 
@@ -19,6 +19,33 @@ export function fetchTeams() {
 				dispatch({
 					type: "SET_TEAMS",
 					entities: { team: normalizedData },
+				})
+			})
+	}
+}
+
+export function createTeam(newTeam) {
+	return (dispatch, getState) => {
+		const configObj = {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "application/json",
+				Authorization: "Bearer " + getState().loggedInUser.accessToken,
+			},
+			body: JSON.stringify({
+				season_id: newTeam.selectedSeasonId,
+				organization_id: newTeam.selectedOrgId,
+			}),
+		}
+
+		fetch(`http://localhost:3000/api/v1/teams`, configObj)
+			.then((resp) => resp.json())
+			.then((data) => {
+				let normalizedData = normalize(data)
+				dispatch({
+					type: "ADD_TEAM",
+					team: normalizedData.team,
 				})
 			})
 	}

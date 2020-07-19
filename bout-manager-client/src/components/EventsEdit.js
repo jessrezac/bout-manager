@@ -105,7 +105,7 @@ class EventsEdit extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		accessToken: state.user.user.access_token,
+		accessToken: state.loggedInUser.accessToken,
 		events: state.entities.event,
 		teams: state.entities.team,
 	}

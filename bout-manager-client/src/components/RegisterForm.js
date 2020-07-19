@@ -1,52 +1,53 @@
-import React, { Component } from 'react'
+import React, { Component } from "react"
 import { connect } from "react-redux"
 import { setRegistrationErrors, setLoginError } from "./../actions/user"
 
 class RegisterForm extends Component {
+	state = {
+		email: "",
+		password: "",
+		password_confirmation: "",
+	}
 
-    state = {
-        email: "",
-        password: "",
-        password_confirmation: ""
-    }
+	handleInputChange = (e) => {
+		this.setState({
+			[e.target.name]: e.target.value,
+		})
+	}
 
-    handleInputChange = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
-
-    handleSubmit = (e) => {
-        e.preventDefault()
-        console.log(this.state)
-        const configObj = { 
-            method: "POST", 
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json"
-            },
-            body: JSON.stringify({api_v1_user: this.state})
-        }
-        fetch("http://localhost:3000/api/v1/users", configObj)
-            .then(resp => resp.json())
-            .then(data => {
-                if (data.errors) { 
-					this.props.setRegistrationErrors(data.errors) 
+	handleSubmit = (e) => {
+		e.preventDefault()
+		console.log(this.state)
+		const configObj = {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "application/json",
+			},
+			body: JSON.stringify({ api_v1_user: this.state }),
+		}
+		fetch("http://localhost:3000/api/v1/users", configObj)
+			.then((resp) => resp.json())
+			.then((data) => {
+				if (data.errors) {
+					this.props.setRegistrationErrors(data.errors)
 				} else {
 					this.props.setRegistrationErrors({})
-					this.props.setLoginError("Thanks for registering! Please login.")
+					this.props.setLoginError(
+						"Thanks for registering! Please login."
+					)
 					this.props.toggleModal()
 				}
-            });
-        this.setState({
-            email: "",
-            password: "",
-            password_confirmation: ""
-        });
-    }
+			})
+		this.setState({
+			email: "",
+			password: "",
+			password_confirmation: "",
+		})
+	}
 
-    render() {
-        return (
+	render() {
+		return (
 			<form onSubmit={this.handleSubmit}>
 				<div className="field">
 					<label htmlFor="email">Email Address</label>
@@ -100,18 +101,23 @@ class RegisterForm extends Component {
 				</div>
 			</form>
 		)
-    }
-}
-
-const mapStateToProps = state => {
-    return {
-		emailErrors:
-			state.user.registrationErrors.email &&
-			"Email " + state.user.registrationErrors["email"] + ".",
-		passwordErrors:
-			state.user.registrationErrors["password"] &&
-			"Password " + state.user.registrationErrors["password"] + "."
 	}
 }
 
-export default connect(mapStateToProps, { setRegistrationErrors, setLoginError })(RegisterForm)
+const mapStateToProps = (state) => {
+	return {
+		emailErrors:
+			state.loggedInUser.registrationErrors.email &&
+			"Email " + state.loggedInUser.registrationErrors["email"] + ".",
+		passwordErrors:
+			state.loggedInUser.registrationErrors["password"] &&
+			"Password " +
+				state.loggedInUser.registrationErrors["password"] +
+				".",
+	}
+}
+
+export default connect(mapStateToProps, {
+	setRegistrationErrors,
+	setLoginError,
+})(RegisterForm)

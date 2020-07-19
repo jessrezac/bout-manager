@@ -1,19 +1,50 @@
 import React, { Component } from "react"
 import TeamRow from "../components/TeamRow"
-import { connect } from "react-redux"
-import { setEntities } from "../actions/entities"
+import { Link } from "react-router-dom"
 
-class TeamList extends Component {
+class TeamTable extends Component {
 	renderTeams = () => {
-		return this.props.eventTeams.map((team) => {
-			const teamObject = this.props.teams[team.id]
+		return Object.keys(this.props.teams).map((teamId) => {
+			const teamObject = this.props.teams[teamId]
 			return (
 				<TeamRow
-					key={team.id}
-					teamId={team.id}
-					teamName={teamObject.attributes.teamName}
-					handleTeamRemove={this.props.handleTeamRemove}
-				/>
+					key={teamId}
+					teamId={teamId}
+					teamName={teamObject.attributes.teamName}>
+					<Link to={`/teams/${teamId}`} className="button is-info">
+						<span className="icon is-large is-white">
+							<i
+								className="fas fa-eye fa-lg"
+								aria-hidden="true"></i>
+							<span className="is-sr-only">Eye</span>
+						</span>
+						<span>View</span>
+					</Link>
+
+					<Link
+						to={`/organizations/${teamObject.attributes.organization.id}/edit`}
+						className="button is-link">
+						<span className="icon is-large is-white">
+							<i
+								className="fas fa-project-diagram fa-lg"
+								aria-hidden="true"></i>
+							<span className="is-sr-only">Diagram</span>
+						</span>
+						<span>Edit Organization</span>
+					</Link>
+
+					<button
+						onClick={() => this.props.deleteTeam(teamId)}
+						className="button is-danger">
+						<span className="icon is-large is-white">
+							<i
+								className="fas fa-trash-alt fa-lg"
+								aria-hidden="true"></i>
+							<span className="is-sr-only">Trash</span>
+						</span>
+						<span>Delete</span>
+					</button>
+				</TeamRow>
 			)
 		})
 	}
@@ -21,17 +52,10 @@ class TeamList extends Component {
 	render() {
 		return (
 			<table className="table is-hoverable">
-				<tbody>{this.renderTeams(this.props.eventTeams)}</tbody>
+				<tbody>{this.renderTeams()}</tbody>
 			</table>
 		)
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		teams: state.entities.team,
-		accessToken: state.user.user.access_token,
-	}
-}
-
-export default connect(mapStateToProps, { setEntities })(TeamList)
+export default TeamTable

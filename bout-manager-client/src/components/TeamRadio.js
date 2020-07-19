@@ -1,15 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component } from "react"
 
 class TeamRadio extends Component {
-
-    render() {
-        return (
+	render() {
+		return (
 			<div className="field">
 				<input
 					className="is-checkradio is-medium"
 					id={this.props.id}
 					type="radio"
-					name="team"
+					name="selectedTeam"
 					value={this.props.id}
 					checked={this.props.selectedTeam === this.props.id}
 					onChange={this.props.setSelectedTeam}></input>
@@ -18,8 +17,7 @@ class TeamRadio extends Component {
 				</label>
 			</div>
 		)
-    }
-
+	}
 }
 
 export default TeamRadio

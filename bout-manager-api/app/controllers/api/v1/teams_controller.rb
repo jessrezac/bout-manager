@@ -9,6 +9,12 @@ class Api::V1::TeamsController < ApplicationController
         render json: TeamSerializer.new(teams)
     end
 
+    def create
+        team = Team.create(team_params)
+
+        options = { include: [:organization, :season]}
+        render json: TeamSerializer.new(team)
+    end
 
     private
 
@@ -16,7 +22,7 @@ class Api::V1::TeamsController < ApplicationController
         User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
     end
 
-    def event_params
-        params.require(:event).permit(:season_id, :datetime, :location, :name)
+    def team_params
+        params.require(:team).permit(:organization_id, :season_id)
     end
 end

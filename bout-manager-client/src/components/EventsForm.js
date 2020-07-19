@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import TeamTable from "../containers/TeamTable"
+import EventTeamTable from "../containers/EventTeamTable"
 import { fetchTeams } from "../actions/team.js"
 import { Link } from "react-router-dom"
 
@@ -71,7 +71,7 @@ class EventsForm extends Component {
 					</div>
 				</div>
 				<p className="label">Teams</p>
-				<TeamTable
+				<EventTeamTable
 					eventTeams={this.props.selectedTeams}
 					handleTeamRemove={this.props.handleTeamRemove}
 				/>
@@ -114,7 +114,7 @@ class EventsForm extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		accessToken: state.user.user.access_token,
+		accessToken: state.loggedInUser.accessToken,
 		teams: state.entities.team,
 	}
 }

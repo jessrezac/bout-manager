@@ -14,7 +14,7 @@ class TeamPersonSerializer
   set_key_transform :camel_lower
 
   belongs_to :team, serializer: TeamSerializer
-  belongs_to :person
+  belongs_to :person, serializer: PersonSerializer
 
     
 

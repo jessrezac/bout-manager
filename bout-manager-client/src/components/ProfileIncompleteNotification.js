@@ -1,11 +1,10 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import React, { Component } from "react"
+import { Link } from "react-router-dom"
 
 class ProfileIncompleteNotification extends Component {
-
-    render() {
-        return (
-			<div class="notification is-info is-size-4">
+	render() {
+		return (
+			<div className="notification is-info is-size-4">
 				You haven't completed your profile.{" "}
 				<Link
 					to="/settings/profile"
@@ -14,9 +13,7 @@ class ProfileIncompleteNotification extends Component {
 				</Link>
 			</div>
 		)
-    }
-
+	}
 }
 
 export default ProfileIncompleteNotification
-

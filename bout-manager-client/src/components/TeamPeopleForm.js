@@ -1,57 +1,50 @@
-import React, { Component } from 'react'
+import React, { Component } from "react"
 import { connect } from "react-redux"
 import DistrictSelect from "./DistrictSelect.js"
 import TeamRadioContainer from "../containers/TeamRadioContainer.js"
 import RoleSelect from "./RoleSelect.js"
-import { setTeam } from "../actions/teamPerson"
-
+import { setUserTeamPerson } from "../actions/user"
 
 class TeamPeopleForm extends Component {
 	state = {
 		teams: [],
-		selectedTeam: null,
-		selectedRole: ""
+		selectedTeam: "",
+		selectedRole: "",
 	}
 
-	setTeams = teams => {
+	setTeams = (teams) => {
 		this.setState({
-			teams: teams
+			teams: teams,
 		})
 	}
 
-	setSelectedTeam = e => {
+	handleSelectChange = (e) => {
 		this.setState({
-			selectedTeam: e.target.value
+			[e.target.name]: e.target.value,
 		})
 	}
 
-	setRole = e => {
-		this.setState({
-			selectedRole: e.target.value
-		})
-	}
-
-	handleSubmit = e => {
+	handleSubmit = (e) => {
 		e.preventDefault()
 		const configObj = {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 				Accept: "application/json",
-				Authorization: "Bearer " + this.props.accessToken
+				Authorization: "Bearer " + this.props.accessToken,
 			},
 			body: JSON.stringify({
 				api_v1_team_person: {
 					team_id: this.state.selectedTeam,
 					person_id: this.props.id,
-					role: this.state.selectedRole
-				}
-			})
+					role: this.state.selectedRole,
+				},
+			}),
 		}
 		fetch(`http://localhost:3000/api/v1/team_people`, configObj)
-			.then(resp => resp.json())
-			.then(data => {
-				this.props.setTeam(data.data.attributes)
+			.then((resp) => resp.json())
+			.then((data) => {
+				this.props.setUserTeamPerson(data.attributes)
 			})
 	}
 
@@ -61,21 +54,26 @@ class TeamPeopleForm extends Component {
 				<DistrictSelect setTeams={this.setTeams} />
 				<TeamRadioContainer
 					teams={this.state.teams}
-					setSelectedTeam={this.setSelectedTeam}
+					setSelectedTeam={this.handleSelectChange}
 					selectedTeam={this.state.selectedTeam}
 				/>
-				<RoleSelect setRole={this.setRole} selectedRole={this.state.selectedRole} />
-				<button type="submit" className="button">Submit</button>
+				<RoleSelect
+					setRole={this.handleSelectChange}
+					selectedRole={this.state.selectedRole}
+				/>
+				<button type="submit" className="button">
+					Submit
+				</button>
 			</form>
 		)
 	}
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
 	return {
-		accessToken: state.user.user.access_token,
-		id: state.user.user.person_id
+		accessToken: state.loggedInUser.accessToken,
+		id: state.loggedInUser.person.id,
 	}
 }
 
-export default connect(mapStateToProps, { setTeam })(TeamPeopleForm)
+export default connect(mapStateToProps, { setUserTeamPerson })(TeamPeopleForm)

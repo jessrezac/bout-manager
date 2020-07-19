@@ -7,7 +7,6 @@ import LogoutButton from "./LogoutButton"
 
 class Navbar extends Component {
 	renderUserButton = () => {
-		console.log(this.props.isLoggedIn)
 		if (this.props.isLoggedIn) {
 			return <LogoutButton logout={this.props.logout} />
 		}
@@ -104,7 +103,7 @@ class Navbar extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		isLoggedIn: state.user.isLoginSuccess,
+		isLoggedIn: state.loggedInUser.isLoginSuccess,
 	}
 }
 

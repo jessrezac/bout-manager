@@ -47,6 +47,7 @@ class LoginForm extends Component {
 				} else {
 					this.props.setLoginError("")
 					this.props.setLoginSuccess(data)
+
 					// localStorage.setItem("rememberMe", this.state.rememberMe)
 					// if (this.state.rememberMe) {
 					//     localStorage.setItem(
@@ -59,10 +60,10 @@ class LoginForm extends Component {
 					//     localStorage.setItem("token_type", data.token_type)
 					//     localStorage.setItem("user_id", data.user_id)
 					// }
-					// console.log(data)
 					this.props.hideModal()
-					// data.profile_complete ? this.props.history.push("/dashboard") : this.props.history.push("/welcome")
-					this.props.history.push("/events")
+					data.profile_complete
+						? this.props.history.push("/events")
+						: this.props.history.push("/welcome")
 				}
 			})
 	}
@@ -125,10 +126,10 @@ class LoginForm extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		isLoginPending: state.user.isLoginPending,
-		isLoginSuccess: state.user.isLoginSuccess,
-		loginError: state.user.loginError,
-		user: state.user.user,
+		isLoginPending: state.loggedInUser.isLoginPending,
+		isLoginSuccess: state.loggedInUser.isLoginSuccess,
+		loginError: state.loggedInUser.loginError,
+		user: state.loggedInUser.user,
 	}
 }
 

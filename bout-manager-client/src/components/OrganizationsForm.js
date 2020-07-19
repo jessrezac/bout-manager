@@ -1,20 +1,21 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import { fetchOrganizations } from "../actions/organizations"
 import SeasonOptionList from "../containers/SeasonOptionList"
-import { createTeam } from "../actions/team"
+import { createOrganizationWithTeam } from "../actions/organizations"
 
-class TeamsForm extends Component {
+class OrganizationsForm extends Component {
 	state = {
-		selectedOrgId: "",
+		orgName: "",
+		orgType: "",
 		selectedSeasonId: "",
 	}
 
 	handleSubmit = (event) => {
 		event.preventDefault()
-		this.props.createTeam(this.state)
+		this.props.createOrganizationWithTeam(this.state)
 		this.setState({
-			selectedOrgId: "",
+			orgName: "",
+			orgType: "",
 			selectedSeasonId: "",
 		})
 	}
@@ -25,35 +26,41 @@ class TeamsForm extends Component {
 		})
 	}
 
-	renderOrgDatalist = () => {
-		return Object.keys(this.props.organizations).map((orgId) => {
-			return (
-				<option value={orgId} key={orgId}>
-					{this.props.organizations[orgId].attributes.name}
-				</option>
-			)
-		})
-	}
-
 	render() {
 		return (
 			<form onSubmit={this.handleSubmit}>
-				<h2 className="subtitle">Add from Existing Organization</h2>
+				<h2 className="subtitle">Add from New Organization</h2>
+
 				<div className="field is-grouped">
 					<div className="control is-expanded">
-						<label htmlFor="orgId" className="label">
-							Select Organization
+						<label htmlFor="orgName" className="label">
+							Organization Name
 						</label>
-						<div className="select is-fullwidth">
+						<input
+							type="text"
+							className="input is-primary"
+							placeholder="Organization Name"
+							name="orgName"
+							id="orgName"
+							onChange={this.handleChange}
+							value={this.state.orgName}
+						/>
+					</div>
+					<div className="control">
+						<label htmlFor="orgType" className="label">
+							Organization Type
+						</label>
+						<div className="select">
 							<select
-								name="selectedOrgId"
-								id="selectedOrgId"
+								className="is-primary"
+								name="orgType"
 								onChange={this.handleChange}
-								value={this.state.selectedOrgId}>
+								value={this.state.orgType}>
 								<option value="" disabled>
 									Select
 								</option>
-								{this.renderOrgDatalist()}
+								<option value="school">School</option>
+								<option value="community">Community</option>
 							</select>
 						</div>
 					</div>
@@ -76,10 +83,6 @@ class TeamsForm extends Component {
 			</form>
 		)
 	}
-
-	componentDidMount() {
-		this.props.fetchOrganizations()
-	}
 }
 
 const mapStateToProps = (state) => {
@@ -88,6 +91,6 @@ const mapStateToProps = (state) => {
 		organizations: state.entities.organization,
 	}
 }
-export default connect(mapStateToProps, { fetchOrganizations, createTeam })(
-	TeamsForm
+export default connect(mapStateToProps, { createOrganizationWithTeam })(
+	OrganizationsForm
 )

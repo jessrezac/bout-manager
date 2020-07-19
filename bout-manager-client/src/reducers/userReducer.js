@@ -1,12 +1,27 @@
-import boutManagerReducer from "./boutManagerReducer"
-
 export default function userReducer(
 	state = {
 		isLoginSuccess: false,
 		isLoginPending: false,
+		profileComplete: false,
+
+		// doorkeeper details
+		accessToken: "",
+		refreshToken: "",
+		tokenType: "",
+		expiresIn: null,
+
+		//eventually move these to an errors reducer in state
 		loginError: "",
 		registrationErrors: {},
+
+		// attributes for the user
 		user: {},
+
+		// attributes for the person
+		person: {},
+
+		// attributes for the user's person's team
+		teamPerson: {},
 	},
 	action
 ) {
@@ -15,9 +30,30 @@ export default function userReducer(
 			return Object.assign({}, state, { isLoginPending: true })
 
 		case "SET_LOGIN_SUCCESS":
+			console.log(action.user)
+			const parsedUser = JSON.parse(action.user.user)
+			const parsedPerson = JSON.parse(action.user.person)
+			const parsedTeamPerson = JSON.parse(action.user.team_person)
 			return Object.assign({}, state, {
 				isLoginSuccess: true,
-				user: action.user,
+				profileComplete: action.user.profile_complete,
+				accessToken: action.user.access_token,
+				refreshToken: action.user.refresh_token,
+				tokenType: action.user.token_type,
+				expiresIn: action.user.expires_in,
+				user: parsedUser,
+				person: parsedPerson,
+				teamPerson: parsedTeamPerson,
+			})
+
+		case "SET_USER_TEAM_PERSON":
+			return Object.assign({}, state, {
+				teamPerson: action.teamPerson,
+			})
+
+		case "SET_USER_PERSON":
+			return Object.assign({}, state, {
+				person: action.person,
 			})
 
 		case "SET_LOGIN_ERROR":
@@ -30,13 +66,6 @@ export default function userReducer(
 			return Object.assign({}, state, {
 				registrationErrors: action.registrationErrors,
 			})
-
-		// case "LOGOUT":
-		// 	localStorage.removeItem("state")
-		// 	const { history } = state
-		// 	state = { history }
-
-		// 	return boutManagerReducer(state)
 
 		default:
 			return state

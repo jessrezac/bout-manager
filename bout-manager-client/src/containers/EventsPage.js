@@ -13,7 +13,9 @@ class EventsPage extends Component {
 	render() {
 		return (
 			<section className="section">
-				{!!this.props.teamName ? null : <TeamUnassignedNotification />}
+				{!!this.props.teamPersonId ? null : (
+					<TeamUnassignedNotification />
+				)}
 
 				{this.props.profileComplete ? null : (
 					<ProfileIncompleteNotification />
@@ -50,18 +52,20 @@ class EventsPage extends Component {
 			.then((resp) => resp.json())
 			.then((data) => {
 				let normalizedData = normalize(data)
-				console.log(normalizedData)
 				this.props.setEntities(normalizedData)
+			})
+			.catch((err) => {
+				// ignore errors
 			})
 	}
 }
 
 const mapStateToProps = (state) => {
 	return {
-		profileComplete: state.user.user.profile_complete,
-		teamName: state.team.teamName,
-		teamSeason: state.team.teamSeason,
-		accessToken: state.user.user.access_token,
+		profileComplete: state.loggedInUser.profileComplete,
+		teamPersonId: state.loggedInUser.teamPerson.id,
+		teamSeasonId: state.loggedInUser.teamPerson.season_id,
+		accessToken: state.loggedInUser.accessToken,
 	}
 }
 
