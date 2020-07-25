@@ -5,8 +5,17 @@ class Api::V1::TeamsController < ApplicationController
         user = current_user
         season = Season.find(user.person.teams.last.season_id)
         teams = season.teams
+
+        options = { include: [:organization, :season, :events]}
         
         render json: TeamSerializer.new(teams)
+    end
+
+    def show
+        team = Team.find(params[:id])
+
+        options = { include: [:organization, :season, :events]}
+        render json: TeamSerializer.new(team, options)
     end
 
     def create
@@ -23,6 +32,6 @@ class Api::V1::TeamsController < ApplicationController
     end
 
     def team_params
-        params.require(:team).permit(:organization_id, :season_id)
+        params.require(:team).permit(:id, :organization_id, :season_id)
     end
 end

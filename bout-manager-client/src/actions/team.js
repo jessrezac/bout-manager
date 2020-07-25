@@ -24,6 +24,30 @@ export function fetchTeams() {
 	}
 }
 
+export function fetchTeam(teamId) {
+	return (dispatch, getState) => {
+		dispatch({ type: "START_ADDING_TEAMS_REQUEST" })
+		const configObj = {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "application/json",
+				Authorization: "Bearer " + getState().loggedInUser.accessToken,
+			},
+		}
+
+		fetch(`http://localhost:3000/api/v1/teams/` + teamId, configObj)
+			.then((resp) => resp.json())
+			.then((data) => {
+				let normalizedData = normalize(data)
+				dispatch({
+					type: "SET_ENTITITES",
+					entities: normalizedData,
+				})
+			})
+	}
+}
+
 export function createTeam(newTeam) {
 	return (dispatch, getState) => {
 		const configObj = {
