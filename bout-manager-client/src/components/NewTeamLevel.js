@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 
-class NewEventLevel extends Component {
+class NewTeamLevel extends Component {
 	render() {
 		return (
 			<div className="level">
@@ -11,8 +11,8 @@ class NewEventLevel extends Component {
 				</div>
 				<div className="level-right">
 					<div className="level-item">
-						<Link to="/events/new" className="button is-primary">
-							New Event
+						<Link to="/teams/new" className="button is-primary">
+							New Team
 						</Link>
 					</div>
 				</div>
@@ -28,4 +28,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps)(NewEventLevel)
+export default connect(mapStateToProps)(NewTeamLevel)

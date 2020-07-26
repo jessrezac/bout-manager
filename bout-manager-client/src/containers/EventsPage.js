@@ -3,11 +3,9 @@ import { Route } from "react-router-dom"
 import { connect } from "react-redux"
 import ProfileIncompleteNotification from "../components/ProfileIncompleteNotification"
 import TeamUnassignedNotification from "../components/TeamUnassignedNotification"
-import NewEventLevel from "../components/NewEventLevel"
 import EventsShow from "../components/EventsShow"
 import EventsEdit from "../components/EventsEdit"
-import normalize from "json-api-normalizer"
-import { setEntities } from "../actions/entities.js"
+import { fetchEvents } from "../actions/entities.js"
 
 class EventsPage extends Component {
 	render() {
@@ -20,8 +18,6 @@ class EventsPage extends Component {
 				{this.props.profileComplete ? null : (
 					<ProfileIncompleteNotification />
 				)}
-
-				<NewEventLevel />
 
 				<div className="container">
 					<Route
@@ -40,23 +36,7 @@ class EventsPage extends Component {
 	}
 
 	componentDidMount() {
-		const configObj = {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Accept: "application/json",
-				Authorization: "Bearer " + this.props.accessToken,
-			},
-		}
-		fetch(`http://localhost:3000/api/v1/events`, configObj)
-			.then((resp) => resp.json())
-			.then((data) => {
-				let normalizedData = normalize(data)
-				this.props.setEntities(normalizedData)
-			})
-			.catch((err) => {
-				// ignore errors
-			})
+		this.props.fetchEvents()
 	}
 }
 
@@ -69,4 +49,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps, { setEntities })(EventsPage)
+export default connect(mapStateToProps, { fetchEvents })(EventsPage)

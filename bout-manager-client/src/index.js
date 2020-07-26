@@ -7,7 +7,8 @@ import Welcome from "./components/Welcome"
 import Dashboard from "./components/Dashboard"
 import EventsNew from "./components/EventsNew"
 import EventsPage from "./containers/EventsPage"
-import EventListContainer from "./containers/EventListContainer"
+import EventsIndex from "./components/EventsIndex"
+import TeamsPage from "./containers/TeamsPage"
 import TeamsNew from "./components/TeamsNew"
 import TeamsIndex from "./components/TeamsIndex"
 
@@ -42,18 +43,22 @@ ReactDOM.render(
 					<EventsNew />
 				</Route>
 				<Route exact path="/events">
-					<EventListContainer />
+					<EventsIndex />
 				</Route>
 				<Route
 					path="/events"
 					render={(routerProps) => <EventsPage {...routerProps} />}
 				/>
-				<Route exact path="/teams">
-					<TeamsIndex />
-				</Route>
 				<Route path="/teams/new">
 					<TeamsNew />
 				</Route>
+				<Route exact path="/teams">
+					<TeamsIndex />
+				</Route>
+				<Route
+					path="/teams"
+					render={(routerProps) => <TeamsPage {...routerProps} />}
+				/>
 				<Route path="/settings">
 					<Settings />
 				</Route>
