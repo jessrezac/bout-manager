@@ -1,9 +1,10 @@
 class Api::V1::TeamsController < ApplicationController
     before_action :doorkeeper_authorize!
+    before_action :set_team, only: [:show, :destroy]
 
     def index
         user = current_user
-        season = Season.find(user.person.teams.last.season_id)
+        season = user.person.current_season
         teams = season.teams
 
         options = { include: [:organization, :season, :events]}
@@ -12,10 +13,8 @@ class Api::V1::TeamsController < ApplicationController
     end
 
     def show
-        team = Team.find(params[:id])
-
         options = { include: [:organization, :season, :events]}
-        render json: TeamSerializer.new(team, options)
+        render json: TeamSerializer.new(@team, options)
     end
 
     def create
@@ -25,7 +24,15 @@ class Api::V1::TeamsController < ApplicationController
         render json: TeamSerializer.new(team)
     end
 
+    def destroy
+        @team.destroy
+    end
+
     private
+
+    def set_team
+        @team = Team.find(params[:id])
+    end
 
     def current_user
         User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token

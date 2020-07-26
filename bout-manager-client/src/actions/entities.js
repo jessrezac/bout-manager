@@ -25,10 +25,7 @@ export const fetchEvents = () => {
 			.then((resp) => resp.json())
 			.then((data) => {
 				let normalizedData = normalize(data)
-				dispatch({
-					type: "SET_ENTITIES",
-					entities: normalizedData,
-				})
+				setEntities(normalizedData)
 			})
 	}
 }

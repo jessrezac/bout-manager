@@ -8,10 +8,26 @@ import LogoutButton from "./LogoutButton"
 class Navbar extends Component {
 	renderUserButton = () => {
 		if (this.props.isLoggedIn) {
-			return <LogoutButton logout={this.props.logout} />
+			return (
+				<>
+					<Link
+						to={`/teams/${this.props.userTeamId}`}
+						className="button is-danger">
+						My Team
+					</Link>
+
+					<LogoutButton logout={this.props.logout} />
+				</>
+			)
 		}
 
 		return <LoginButton showModal={this.props.showModal} />
+	}
+
+	renderUserTeamLink = () => {
+		if (this.props.isLoggedIn) {
+			return <div className="navbar-dropdown"></div>
+		}
 	}
 
 	render() {
@@ -45,18 +61,40 @@ class Navbar extends Component {
 
 				<div id="navbarBasicExample" className="navbar-menu">
 					<div className="navbar-start">
-						<Link to="/" className="navbar-item">
-							Home
-						</Link>
+						<div className="navbar-item has-dropdown is-hoverable">
+							<Link to="/events" className="navbar-link">
+								Events
+							</Link>
 
-						<Link to="/events" className="navbar-item">
-							Events
-						</Link>
+							<div className="navbar-dropdown">
+								<Link to="/events" className="navbar-item">
+									All Events
+								</Link>
 
-						<Link to="/welcome" className="navbar-item">
-							Welcome
-						</Link>
+								<Link to="/events/new" className="navbar-item">
+									New Event
+								</Link>
+							</div>
+						</div>
 
+						<div className="navbar-item has-dropdown is-hoverable">
+							<Link to="/teams" className="navbar-link">
+								Teams
+							</Link>
+
+							<div className="navbar-dropdown">
+								<Link to="/teams" className="navbar-item">
+									All Teams
+								</Link>
+
+								<Link to="/teams/new" className="navbar-item">
+									New Team
+								</Link>
+							</div>
+						</div>
+					</div>
+
+					<div className="navbar-end">
 						<div className="navbar-item has-dropdown is-hoverable">
 							<Link to="#navbar" className="navbar-link">
 								Settings
@@ -86,9 +124,6 @@ class Navbar extends Component {
 								</Link>
 							</div>
 						</div>
-					</div>
-
-					<div className="navbar-end">
 						<div className="navbar-item">
 							<div className="buttons">
 								{this.renderUserButton()}
@@ -104,6 +139,7 @@ class Navbar extends Component {
 const mapStateToProps = (state) => {
 	return {
 		isLoggedIn: state.loggedInUser.isLoginSuccess,
+		userTeamId: state.loggedInUser.teamPerson.team_id,
 	}
 }
 
