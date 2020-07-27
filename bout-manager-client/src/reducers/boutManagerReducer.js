@@ -11,7 +11,6 @@ export const history = createBrowserHistory()
 const boutManagerReducer = combineReducers({
 	router: connectRouter(history),
 	loggedInUser: userReducer,
-	team: teamPersonReducer,
 	entities: entitiesReducer,
 })
 
