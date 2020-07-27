@@ -18,6 +18,8 @@ const entitiesReducer = (
 				state.organization,
 				action.entities.organization
 			)
+
+			console.log(state)
 			return Object.assign({}, state, {
 				event: updatedEvents,
 				team: updatedTeams,

@@ -30,7 +30,7 @@ export function createOrganizationWithTeam(newOrganization) {
 			headers: {
 				"Content-Type": "application/json",
 				Accept: "application/json",
-				Authorization: "Bearer " + getState().loggedInuser.accessToken,
+				Authorization: "Bearer " + getState().loggedInUser.accessToken,
 			},
 			body: JSON.stringify({
 				name: newOrganization.orgName,

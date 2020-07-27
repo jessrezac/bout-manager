@@ -9,7 +9,6 @@ export const setEntities = (entities) => {
 
 export const fetchEvents = () => {
 	return (dispatch, getState) => {
-		dispatch({ type: "START_ADDING_TEAMS_REQUEST" })
 		const user = getState().loggedInUser
 		let userAuthorizationTokens = user.tokenType + " " + user.accessToken
 		const configObj = {
@@ -25,7 +24,14 @@ export const fetchEvents = () => {
 			.then((resp) => resp.json())
 			.then((data) => {
 				let normalizedData = normalize(data)
-				setEntities(normalizedData)
+				console.log(normalizedData)
+				dispatch({
+					type: "SET_ENTITIES",
+					entities: normalizedData,
+				})
+			})
+			.catch((err) => {
+				// ignore errors
 			})
 	}
 }
