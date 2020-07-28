@@ -3,7 +3,6 @@ import { createBrowserHistory } from "history"
 
 import userReducer from "./userReducer"
 import { connectRouter } from "connected-react-router"
-import teamPersonReducer from "./teamPersonReducer"
 import entitiesReducer from "./entitiesReducer"
 
 export const history = createBrowserHistory()

@@ -30,7 +30,6 @@ export default function userReducer(
 			return Object.assign({}, state, { isLoginPending: true })
 
 		case "SET_LOGIN_SUCCESS":
-			console.log(action.user)
 			const parsedUser = JSON.parse(action.user.user)
 			const parsedPerson = JSON.parse(action.user.person)
 			const parsedTeamPerson = JSON.parse(action.user.team_person)

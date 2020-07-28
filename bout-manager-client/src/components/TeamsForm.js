@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
+import { push } from "connected-react-router"
 import { fetchOrganizations } from "../actions/organizations"
 import SeasonOptionList from "../containers/SeasonOptionList"
 import { createTeam } from "../actions/team"
@@ -17,6 +18,7 @@ class TeamsForm extends Component {
 			selectedOrgId: "",
 			selectedSeasonId: "",
 		})
+		this.props.push.goBack()
 	}
 
 	handleChange = (event) => {
