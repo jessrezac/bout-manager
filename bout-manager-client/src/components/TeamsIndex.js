@@ -19,7 +19,6 @@ class TeamsIndex extends Component {
 			.then((resp) => resp.json())
 			.then((data) => {
 				let normalizedData = normalize(data)
-				console.log(normalizedData)
 				this.props.history.push("/teams")
 				// this.props.deleteTeam(normalizedData.team.id)
 			})

@@ -17,7 +17,6 @@ class RegisterForm extends Component {
 
 	handleSubmit = (e) => {
 		e.preventDefault()
-		console.log(this.state)
 		const configObj = {
 			method: "POST",
 			headers: {
@@ -36,7 +35,7 @@ class RegisterForm extends Component {
 					this.props.setLoginError(
 						"Thanks for registering! Please login."
 					)
-					this.props.toggleModal()
+					this.props.hideModal()
 				}
 			})
 		this.setState({

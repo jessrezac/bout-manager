@@ -28,6 +28,6 @@ export const setRegistrationErrors = (registrationErrors) => {
 }
 
 export const logout = () => {
-	history.push("/")
+	history.push("/test")
 	return { type: "LOGOUT" }
 }
