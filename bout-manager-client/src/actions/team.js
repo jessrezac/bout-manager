@@ -74,3 +74,9 @@ export function createTeam(newTeam) {
 			})
 	}
 }
+
+export function deleteTeam(teamId) {
+	return (dispatch) => {
+		dispatch({ type: "DELETE_TEAM", team: teamId })
+	}
+}

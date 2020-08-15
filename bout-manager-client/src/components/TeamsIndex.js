@@ -1,8 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import { fetchTeams } from "../actions/team"
+import { fetchTeams, deleteTeam } from "../actions/team"
 import TeamTable from "../containers/TeamTable"
-import normalize from "json-api-normalizer"
 
 class TeamsIndex extends Component {
 	handleTeamDelete = (teamId) => {
@@ -18,9 +17,7 @@ class TeamsIndex extends Component {
 		fetch("http://localhost:3000/api/v1/teams/" + teamId, configObj)
 			.then((resp) => resp.json())
 			.then((data) => {
-				let normalizedData = normalize(data)
-				this.props.history.push("/teams")
-				// this.props.deleteTeam(normalizedData.team.id)
+				this.props.deleteTeam(data)
 			})
 	}
 
@@ -31,7 +28,7 @@ class TeamsIndex extends Component {
 					<h1 className="title is-1">Teams</h1>
 					<TeamTable
 						teams={this.props.teams}
-						handleTeamDelete={this.handleTeamDelete}
+						deleteTeam={this.handleTeamDelete}
 					/>
 				</div>
 			</section>
@@ -45,8 +42,9 @@ class TeamsIndex extends Component {
 
 const mapStateToProps = (state) => {
 	return {
+		accessToken: state.loggedInUser.accessToken,
 		teams: state.entities.team,
 	}
 }
 
-export default connect(mapStateToProps, { fetchTeams })(TeamsIndex)
+export default connect(mapStateToProps, { fetchTeams, deleteTeam })(TeamsIndex)

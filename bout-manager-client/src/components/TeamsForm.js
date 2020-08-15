@@ -7,18 +7,31 @@ import { createTeam } from "../actions/team"
 
 class TeamsForm extends Component {
 	state = {
-		selectedOrgId: "",
+		selectedOrgName: "",
 		selectedSeasonId: "",
 	}
 
 	handleSubmit = (event) => {
 		event.preventDefault()
-		this.props.createTeam(this.state)
+
+		let organization = Object.keys(this.props.organizations).find(
+			(orgId) => {
+				return (
+					this.props.organizations[orgId].attributes.name ===
+					this.state.selectedOrgName
+				)
+			}
+		)
+
+		this.props.createTeam({
+			selectedSeasonId: this.state.selectedSeasonId,
+			selectedOrgId: organization,
+		})
+
 		this.setState({
-			selectedOrgId: "",
+			selectedOrgName: "",
 			selectedSeasonId: "",
 		})
-		this.props.push.goBack()
 	}
 
 	handleChange = (event) => {
@@ -30,9 +43,10 @@ class TeamsForm extends Component {
 	renderOrgDatalist = () => {
 		return Object.keys(this.props.organizations).map((orgId) => {
 			return (
-				<option value={orgId} key={orgId}>
-					{this.props.organizations[orgId].attributes.name}
-				</option>
+				<option
+					value={this.props.organizations[orgId].attributes.name}
+					key={orgId}
+				/>
 			)
 		})
 	}
@@ -46,17 +60,18 @@ class TeamsForm extends Component {
 						<label htmlFor="orgId" className="label">
 							Select Organization
 						</label>
-						<div className="select is-fullwidth">
-							<select
-								name="selectedOrgId"
-								id="selectedOrgId"
+						<div className="is-fullwidth">
+							<input
+								name="selectedOrgName"
+								id="selectedOrgName"
+								className="input is-primary"
 								onChange={this.handleChange}
-								value={this.state.selectedOrgId}>
-								<option value="" disabled>
-									Select
-								</option>
+								value={this.state.selectedOrgId}
+								list="organizations"
+							/>
+							<datalist id="organizations">
 								{this.renderOrgDatalist()}
-							</select>
+							</datalist>
 						</div>
 					</div>
 					<div className="control">
