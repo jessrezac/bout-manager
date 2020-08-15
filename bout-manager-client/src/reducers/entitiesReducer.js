@@ -2,6 +2,12 @@ function updateObject(oldObject, newValues) {
 	return Object.assign({}, oldObject, newValues)
 }
 
+function removeItemFromObject(oldObject, removedValue) {
+	const copyState = Object.assign({}, oldObject)
+	delete copyState[removedValue]
+	return copyState
+}
+
 const entitiesReducer = (
 	state = { event: {}, team: {}, season: {}, organization: {} },
 	action
@@ -37,6 +43,12 @@ const entitiesReducer = (
 				...state,
 				// Update our Entities object with a new "team" object
 				team: updateObject(state.team, action.team),
+			}
+
+		case "DELETE_TEAM":
+			return {
+				...state,
+				team: removeItemFromObject(state.team, action.team),
 			}
 
 		case "ADD_ORGANIZATION":

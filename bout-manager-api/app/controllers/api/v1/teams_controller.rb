@@ -25,7 +25,9 @@ class Api::V1::TeamsController < ApplicationController
     end
 
     def destroy
+        team_id = @team.id
         @team.destroy
+        render json: team_id.to_json
     end
 
     private
